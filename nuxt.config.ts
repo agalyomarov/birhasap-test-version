@@ -19,7 +19,7 @@ export default defineNuxtConfig({
          },
       },
       optimizeDeps: {
-         include: ["@vue/devtools-core", "@vue/devtools-kit"],
+         include: ["@tauri-apps/api/core", "@vue/devtools-core", "@vue/devtools-kit"],
       },
    },
    // Avoids error [unhandledRejection] EMFILE: too many open files, watch
