@@ -1,8 +1,8 @@
 {
    "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-   "productName": "tauri-todo",
+   "productName": "Birhasap test version",
    "version": "0.1.0",
-   "identifier": "com.tauri.dev",
+   "identifier": "com.tauri.birhasap-test-version",
    "build": {
       "frontendDist": "../dist",
       "devUrl": "http://localhost:3000",
@@ -12,14 +12,18 @@
    "app": {
       "windows": [
          {
-            "title": "ToDo",
-            "width": 800,
-            "height": 1000,
-            "resizable": true,
+            "title": "main",
+            "width": 366,
+            "height": 202,
+            "resizable": false,
             "fullscreen": false,
-            "maxWidth": 800,
-            "minWidth": 800,
-            "minHeight": 1000
+            "minWidth": 366,
+            "minHeight": 202,
+            "decorations": false,
+            "url": "/login",
+            "alwaysOnTop": true,
+            "hiddenTitle": true,
+            "titleBarStyle": "Overlay"
          }
       ],
       "security": {

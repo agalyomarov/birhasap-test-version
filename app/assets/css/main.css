@@ -1,0 +1,24 @@
+@import "tailwindcss";
+:root {
+   color-scheme: light !important;
+   --color-scheme: light !important;
+}
+
+@theme {
+   --font-sans: "Roboto", sans-serif;
+}
+
+html,
+body,
+#__nuxt {
+   width: 100dvw;
+   height: 100dvh;
+   min-width: 100dvw;
+   min-height: 100dvh;
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   overflow: hidden;
+}

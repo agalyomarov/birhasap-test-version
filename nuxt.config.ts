@@ -1,10 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineNuxtConfig({
    compatibilityDate: "2025-07-15",
    devtools: { enabled: true },
    ssr: false,
    telemetry: false,
+   css: ["./app/assets/css/main.css", "./app/assets/css/font-roboto.css"],
    vite: {
+      plugins: [tailwindcss()],
       // Better support for Tauri CLI output
       clearScreen: false,
       // Enable environment variables
