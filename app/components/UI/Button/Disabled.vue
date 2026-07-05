@@ -5,4 +5,9 @@
    </UIButtonBase>
 </template>
 
-<style scoped></style>
+<style scoped>
+.button:active {
+   background: none;
+   border-color: #b3b3b3;
+}
+</style>

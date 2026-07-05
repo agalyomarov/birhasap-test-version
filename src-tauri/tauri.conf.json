@@ -13,12 +13,12 @@
       "windows": [
          {
             "title": "main",
-            "width": 366,
-            "height": 202,
+            "width": 370,
+            "height": 222,
+            "minWidth": 370,
+            "minHeight": 222,
             "resizable": false,
             "fullscreen": false,
-            "minWidth": 366,
-            "minHeight": 202,
             "decorations": false,
             "url": "/login",
             "alwaysOnTop": true,
