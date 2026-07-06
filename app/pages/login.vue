@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
-// import { LogicalSize } from "@tauri-apps/api/dpi";
+const { openModal } = useModal();
 
 const appWindow = getCurrentWindow();
 const hideContent = ref(false);
@@ -26,26 +26,29 @@ const handleCloseWindow = async () => {
 };
 
 const handleSubmit = async () => {
-  hideContent.value = true;
-  await appWindow.setAlwaysOnTop(false);
-  await appWindow.setResizable(true);
-  await appWindow.maximize();
-  await appWindow.center();
-  await navigateTo("/", { replace: true });
-  console.log("form");
+  if (lowercaseName.value == "admin" && lowercasePassword.value == "1122") {
+    hideContent.value = true;
+    await appWindow.setAlwaysOnTop(false);
+    await appWindow.setResizable(true);
+    await appWindow.maximize();
+    await appWindow.center();
+    await navigateTo("/", { replace: true });
+    console.log("form");
+  } else {
+    openModal({ modalContent: "Ulanyjy ya-da pinkod yalnysh doldurlan", modalType: "warning", modalTitle: null });
+  }
 };
 
 onMounted(async () => {
   await appWindow.setAlwaysOnTop(true);
   await appWindow.setResizable(false);
   await appWindow.setSize(new LogicalSize(370, 222));
-  await appWindow.center();
 });
 </script>
 <template>
   <main
     v-if="!hideContent"
-    class="p-4"
+    class="p-4 select-none"
   >
     <PageLoginTitlebar>Birhasaba girmek</PageLoginTitlebar>
     <form
@@ -70,21 +73,22 @@ onMounted(async () => {
         >
           Dowam etmek
         </UIButtonDisabled>
-        <UIButtonBase
+        <UIButtonSimple
           v-else
           type="submit"
         >
           Dowam etmek
-        </UIButtonBase>
-        <UIButtonBase
+        </UIButtonSimple>
+        <UIButtonSimple
           type="button"
           @click="handleCloseWindow()"
         >
           Yapmak
-        </UIButtonBase>
+        </UIButtonSimple>
       </div>
     </form>
   </main>
+  <UIModalWarning />
 </template>
 
 <style scoped></style>
