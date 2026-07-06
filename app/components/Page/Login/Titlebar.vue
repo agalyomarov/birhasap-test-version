@@ -8,7 +8,7 @@ const handleCloseWindow = async () => {
 };
 </script>
 <template>
-  <div
+  <header
     data-tauri-drag-region
     class="flex items-center select-none justify-between"
   >
@@ -60,7 +60,7 @@ const handleCloseWindow = async () => {
         />
       </svg>
     </button>
-  </div>
+  </header>
 </template>
 
 <style scoped></style>

@@ -2,6 +2,11 @@
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonType } from "~/enums/button-type";
 import { ButtonUI } from "~/enums/button-ui";
+
+definePageMeta({
+  layout: "login",
+});
+
 const { openModal } = useModal();
 
 const appWindow = getCurrentWindow();
@@ -32,8 +37,10 @@ const handleSubmit = async () => {
     hideContent.value = true;
     await appWindow.setAlwaysOnTop(false);
     await appWindow.setResizable(true);
-    await appWindow.maximize();
+    await appWindow.setMinSize(new LogicalSize(1200, 800));
     await appWindow.center();
+    await appWindow.maximize();
+    // await new Promise((r) => setTimeout(r, 500));
     await navigateTo("/", { replace: true });
     console.log("form");
   } else {
