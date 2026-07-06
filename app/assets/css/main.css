@@ -22,8 +22,3 @@ body,
 body {
   overflow: hidden;
 }
-
-.button-default {
-  padding: 3px 16px;
-  font-size: 15px;
-}

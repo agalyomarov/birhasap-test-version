@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ButtonType } from "~/enums/button-type";
+import { ButtonUI } from "~/enums/button-ui";
+
 const { isOpan, type, content, closeModal } = useModal();
 </script>
 <template>
@@ -68,9 +71,13 @@ const { isOpan, type, content, closeModal } = useModal();
         <p class="text-[15px]">{{ content }}</p>
       </div>
       <div class="flex gap-4 justify-end">
-        <UIButtonMain @click="closeModal()">
+        <UIButton
+          :ui="ButtonUI.Main"
+          :type="ButtonType.Button"
+          @click="closeModal()"
+        >
           <div class="px-4">OK</div>
-        </UIButtonMain>
+        </UIButton>
       </div>
     </div>
   </div>

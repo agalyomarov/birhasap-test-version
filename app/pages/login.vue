@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
+import { ButtonType } from "~/enums/button-type";
+import { ButtonUI } from "~/enums/button-ui";
 const { openModal } = useModal();
 
 const appWindow = getCurrentWindow();
@@ -67,24 +69,27 @@ onMounted(async () => {
         />
       </label>
       <div class="flex gap-4 justify-end">
-        <UIButtonDisabled
-          type="button"
+        <UIButton
+          :ui="ButtonUI.Disabled"
+          :type="ButtonType.Button"
           v-if="lowercaseName.length < 4 || lowercasePassword.length < 4"
         >
           Dowam etmek
-        </UIButtonDisabled>
-        <UIButtonSimple
+        </UIButton>
+        <UIButton
           v-else
-          type="submit"
+          :ui="ButtonUI.Simple"
+          :type="ButtonType.Submit"
         >
           Dowam etmek
-        </UIButtonSimple>
-        <UIButtonSimple
-          type="button"
+        </UIButton>
+        <UIButton
+          :ui="ButtonUI.Simple"
+          :type="ButtonType.Button"
           @click="handleCloseWindow()"
         >
           Yapmak
-        </UIButtonSimple>
+        </UIButton>
       </div>
     </form>
   </main>
