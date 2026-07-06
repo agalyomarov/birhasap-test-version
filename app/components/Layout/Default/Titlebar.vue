@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import titlebarLogoImg from "~/assets/images/titlebar-logo.png";
-import { getCurrentWindow, currentMonitor, LogicalSize } from "@tauri-apps/api/window";
+import { getCurrentWindow, currentMonitor, LogicalSize, PhysicalSize, PhysicalPosition, LogicalPosition } from "@tauri-apps/api/window";
 const appWindow = getCurrentWindow();
 const isMaximized = ref(false);
 const isFullScreen = ref(false);
@@ -20,6 +20,7 @@ const setWorkspaceSize = async () => {
   if (size && factor) {
     await appWindow.setSize(new LogicalSize(size.width / factor, size.height / factor));
     await appWindow.center();
+    await appWindow.maximize();
     isMaximized.value = true;
   }
 };
@@ -45,21 +46,21 @@ onMounted(async () => {
 <template>
   <header
     data-tauri-drag-region
-    class="cursor-default select-none bg-[#F9EDA7] px-2 py-1 flex items-center justify-between"
+    class="cursor-default select-none bg-[#F9EDA7] px-2 flex items-center justify-between"
   >
     <div class="flex items-center text-base gap-2">
       <div>
         <img
-          class="size-6"
+          class="size-5"
           :src="titlebarLogoImg"
           alt=""
         />
       </div>
       <p>Birhasap - kassa programma / Administrator</p>
     </div>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-1.5">
       <button
-        class="hover:bg-[#F4CC4C] cursor-pointer outline-0"
+        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
         @click="appWindow.minimize()"
       >
         <svg
@@ -78,56 +79,55 @@ onMounted(async () => {
           />
         </svg>
       </button>
-      <template v-if="!isFullScreen">
-        <button
-          v-if="isMaximized"
-          class="hover:bg-[#F4CC4C] cursor-pointer outline-0"
-          @click="setMinSize()"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              x="4.5"
-              y="6.5"
-              width="6"
-              height="6"
-              stroke="black"
-            />
-            <path
-              d="M13 11H11V10H12V5H7V6H6V4H13V11Z"
-              fill="black"
-            />
-          </svg>
-        </button>
-        <button
-          v-else
-          class="hover:bg-[#F4CC4C] cursor-pointer outline-0"
-          @click="setWorkspaceSize()"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              x="4.5"
-              y="4.5"
-              width="8"
-              height="8"
-              stroke="black"
-            />
-          </svg>
-        </button>
-      </template>
       <button
-        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 p-1"
+        v-if="!isMaximized && !isFullScreen"
+        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
+        @click="setWorkspaceSize()"
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 17 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="4.5"
+            y="4.5"
+            width="8"
+            height="8"
+            stroke="black"
+          />
+        </svg>
+      </button>
+      <button
+        v-else
+        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
+        @click="setMinSize()"
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 17 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="4.5"
+            y="6.5"
+            width="6"
+            height="6"
+            stroke="black"
+          />
+          <path
+            d="M13 11H11V10H12V5H7V6H6V4H13V11Z"
+            fill="black"
+          />
+        </svg>
+      </button>
+
+      <button
+        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 p-1 size-7.5 flex items-center justify-center"
         @click="setFullScreen(!isFullScreen)"
       >
         <svg
@@ -183,7 +183,7 @@ onMounted(async () => {
         </svg>
       </button>
       <button
-        class="hover:bg-[#F4CC4C] cursor-pointer outline-0"
+        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
         @click="appWindow.close()"
       >
         <svg

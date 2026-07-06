@@ -40,7 +40,6 @@ const handleSubmit = async () => {
     await appWindow.setMinSize(new LogicalSize(1200, 800));
     await appWindow.center();
     await appWindow.maximize();
-    // await new Promise((r) => setTimeout(r, 500));
     await navigateTo("/", { replace: true });
     console.log("form");
   } else {
