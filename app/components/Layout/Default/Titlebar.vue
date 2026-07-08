@@ -46,12 +46,12 @@ onMounted(async () => {
 <template>
   <header
     data-tauri-drag-region
-    class="cursor-default select-none bg-[#F9EDA7] px-2 flex items-center justify-between"
+    class="cursor-default select-none bg-[#F9EDA7] px-2 flex items-center justify-between border-b border-[#A0A0A0]"
   >
     <div class="flex items-center text-base gap-2">
       <div>
         <img
-          class="size-5"
+          class="size-7"
           :src="titlebarLogoImg"
           alt=""
         />

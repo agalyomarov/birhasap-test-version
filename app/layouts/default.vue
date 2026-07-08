@@ -2,6 +2,7 @@
 
 <template>
   <LayoutDefaultTitlebar />
+  <LayoutDefaultListActivePages />
   <NuxtPage />
 </template>
 
