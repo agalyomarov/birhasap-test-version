@@ -18,13 +18,13 @@ const handleCloseWindow = async () => {
     >
       <img
         data-tauri-drag-region
-        class="size-5.5"
+        class="size-5"
         :src="titlebarLogoImg"
         alt=""
       />
       <p
         data-tauri-drag-region
-        class="text-[19px] leading-5.5"
+        class="text15"
       >
         <slot />
       </p>

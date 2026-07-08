@@ -19,9 +19,14 @@ body,
   padding: 0;
 }
 
-.simple-text {
+.text15 {
   font-size: 15px;
   line-height: 15px;
+}
+
+.text14 {
+  font-size: 14px;
+  line-height: 14px;
 }
 
 body {
@@ -36,12 +41,12 @@ body {
 .small-scrollbar::-webkit-scrollbar-track,
 .small-scrollbar::-webkit-scrollbar-track:hover,
 .small-scrollbar::-webkit-scrollbar-track:active {
-  background-color: #efefeb !important;
+  background-color: #d6d6d6 !important;
 }
 
 .small-scrollbar::-webkit-scrollbar-thumb,
 .small-scrollbar::-webkit-scrollbar-thumb:hover,
 .small-scrollbar::-webkit-scrollbar-thumb:active {
   border-radius: 5px !important;
-  background-color: #d0d0cd !important;
+  background-color: #a0a0a0 !important;
 }

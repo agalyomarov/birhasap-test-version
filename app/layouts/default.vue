@@ -3,6 +3,7 @@
 <template>
   <LayoutDefaultTitlebar />
   <LayoutDefaultListActivePages />
+  <LayoutDefaultSidebar />
   <NuxtPage />
 </template>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <p class="simple-text select-none">
+  <p class="text15 select-none">
     <slot />
   </p>
 </template>

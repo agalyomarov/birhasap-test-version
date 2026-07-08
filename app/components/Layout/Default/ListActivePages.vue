@@ -15,10 +15,11 @@ const list = Array.from({ length: 15 }).map((item, index) => {
   <ul class="border-b border-[#A0A0A0] bg-[#F2F2F2] flex items-center overflow-x-auto small-scrollbar select-none">
     <li
       v-for="(value, index) in list"
-      class="pt-1.75 gap-1 border-r border-[#A0A0A0] h-full cursor-default"
+      class="pt-1.75 pb-0.75 gap-1 border-r h-full cursor-default"
+      :class="[activeIndex == index ? 'bg-white' : 'border-[#A0A0A0]']"
       @click="activeIndex = index"
     >
-      <div class="flex items-center gap-1.75 mb-1 px-3">
+      <div class="flex items-center gap-1.75 mb-1 px-3 py-[0.5px]">
         <div v-if="index == 0">
           <svg
             width="16"
@@ -54,7 +55,7 @@ const list = Array.from({ length: 15 }).map((item, index) => {
             </defs>
           </svg>
         </div>
-        <p class="simple-text text-nowrap">{{ value.title }}</p>
+        <span class="text14 text-nowrap">{{ value.title }}</span>
         <div
           v-if="index != 0"
           class="cursor-pointer"

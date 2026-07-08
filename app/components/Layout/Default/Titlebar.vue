@@ -48,15 +48,15 @@ onMounted(async () => {
     data-tauri-drag-region
     class="cursor-default select-none bg-[#F9EDA7] px-2 flex items-center justify-between border-b border-[#A0A0A0]"
   >
-    <div class="flex items-center text-base gap-2">
+    <div class="flex items-center text15 gap-2">
       <div>
         <img
-          class="size-7"
+          class="size-5"
           :src="titlebarLogoImg"
           alt=""
         />
       </div>
-      <p>Birhasap - kassa programma / Administrator</p>
+      <span class="text15">Birhasap - kassa programma / Administrator</span>
     </div>
     <div class="flex items-center gap-1.5">
       <button

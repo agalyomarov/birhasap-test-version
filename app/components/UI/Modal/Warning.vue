@@ -68,7 +68,7 @@ const { isOpan, type, content, closeModal } = useModal();
             />
           </svg>
         </div>
-        <p class="simple-text">{{ content }}</p>
+        <p class="text15">{{ content }}</p>
       </div>
       <div class="flex gap-4 justify-end">
         <UIButton
