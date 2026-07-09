@@ -68,7 +68,7 @@ const { isOpan, type, content, closeModal } = useModal();
             />
           </svg>
         </div>
-        <p class="text15">{{ content }}</p>
+        <p class="text-text-simple text-color-simple text-center">{{ content }}</p>
       </div>
       <div class="flex gap-4 justify-end">
         <UIButton
@@ -76,7 +76,7 @@ const { isOpan, type, content, closeModal } = useModal();
           :type="ButtonType.Button"
           @click="closeModal()"
         >
-          <div class="px-4">OK</div>
+          <div class="px-4 text-text-simple">OK</div>
         </UIButton>
       </div>
     </div>

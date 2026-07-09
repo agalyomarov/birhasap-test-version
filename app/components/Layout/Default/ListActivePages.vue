@@ -1,25 +1,33 @@
 <script setup lang="ts">
 const activeIndex = ref(0);
-const list = Array.from({ length: 15 }).map((item, index) => {
-  if (index == 0) {
+const list = ref(
+  Array.from({ length: 15 }).map((item, index) => {
+    if (index == 0) {
+      return {
+        title: "Esasy sahypa",
+      };
+    }
     return {
-      title: "Esasy sahypa",
+      title: `Beyleki ${index}`,
     };
+  }),
+);
+
+const handleDelete = (index: number) => {
+  if (index == activeIndex.value) {
+    list.value = list.value.filter((item, i) => i != index);
   }
-  return {
-    title: `Beyleki ${index}`,
-  };
-});
+};
 </script>
 <template>
-  <ul class="border-b border-[#A0A0A0] bg-[#F2F2F2] flex items-center overflow-x-auto small-scrollbar select-none">
+  <ul class="border-b border-[#A0A0A0] bg-[#F2F2F2] flex items-center overflow-x-auto ui-small-scrollbar select-none">
     <li
       v-for="(value, index) in list"
-      class="pt-1.75 pb-0.75 gap-1 border-r h-full cursor-default"
+      class="border-r cursor-default flex items-center relative h-8.25"
       :class="[activeIndex == index ? 'bg-white' : 'border-[#A0A0A0]']"
       @click="activeIndex = index"
     >
-      <div class="flex items-center gap-1.75 mb-1 px-3 py-[0.5px]">
+      <div class="flex items-center gap-1.75 px-3">
         <div v-if="index == 0">
           <svg
             width="16"
@@ -55,10 +63,11 @@ const list = Array.from({ length: 15 }).map((item, index) => {
             </defs>
           </svg>
         </div>
-        <span class="text14 text-nowrap">{{ value.title }}</span>
+        <span class="text-text-simple text-color-simple text-nowrap">{{ value.title }}</span>
         <div
           v-if="index != 0"
-          class="cursor-pointer"
+          :class="[activeIndex == index ? 'cursor-pointer' : '']"
+          @click="handleDelete(index)"
         >
           <svg
             width="16"
@@ -101,7 +110,7 @@ const list = Array.from({ length: 15 }).map((item, index) => {
         </div>
       </div>
       <div
-        class="h-0.5 bg-[#3B863B] mx-2"
+        class="h-0.5 bg-[#3B863B] absolute bottom-0.75 left-1.25 right-1.25"
         :class="[activeIndex > 0 && activeIndex == index ? '' : ' opacity-0']"
       ></div>
     </li>

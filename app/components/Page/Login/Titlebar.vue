@@ -22,12 +22,12 @@ const handleCloseWindow = async () => {
         :src="titlebarLogoImg"
         alt=""
       />
-      <p
+      <span
         data-tauri-drag-region
-        class="text15"
+        class="text-color-black text-text-windiw-title"
       >
         <slot />
-      </p>
+      </span>
     </div>
     <button
       class="hover:bg-[#ececec] cursor-pointer outline-0"

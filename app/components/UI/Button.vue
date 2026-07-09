@@ -11,10 +11,12 @@ const props = defineProps<{
   <button
     :type="props.type"
     :class="[
-      props.ui == ButtonUI.Simple && 'outline-0 border border-[#B3B3B3] rounded-xs select-none text15 px-4 py-0.75 cursor-pointer btn--simple',
-      props.ui == ButtonUI.Main && 'outline-0 border border-[#B7A53B] rounded-xs select-none text15 px-4 py-0.75 cursor-pointer font-bold btn--main',
+      props.ui == ButtonUI.Simple &&
+        'outline-0 border border-[#B3B3B3] rounded-xs  select-none h-7.5  text-color-simple text-text-simple  px-4  cursor-pointer btn--simple',
+      props.ui == ButtonUI.Main &&
+        'outline-0 border border-[#B7A53B]  h-7.5 text-color-simple text-text-simple rounded-xs select-none px-4 cursor-pointer font-bold btn--main',
       props.ui == ButtonUI.Disabled &&
-        'outline-0 border border-[#B3B3B3] rounded-xs select-none text15 px-4 py-0.75 cursor-not-allowed btn--disabled opacity-50',
+        'outline-0 border border-[#B3B3B3] rounded-xs select-none  h-7.5 text-color-simple text-text-simple px-4  cursor-not-allowed btn--disabled opacity-50',
     ]"
   >
     <slot />

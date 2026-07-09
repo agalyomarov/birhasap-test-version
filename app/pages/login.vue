@@ -37,7 +37,7 @@ const handleSubmit = async () => {
     hideContent.value = true;
     await appWindow.setAlwaysOnTop(false);
     await appWindow.setResizable(true);
-    await appWindow.setMinSize(new LogicalSize(1200, 800));
+    await appWindow.setMinSize(new LogicalSize(1000, 700));
     await appWindow.center();
     await appWindow.maximize();
     await navigateTo("/", { replace: true });

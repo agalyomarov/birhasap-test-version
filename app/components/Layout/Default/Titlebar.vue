@@ -8,7 +8,7 @@ const updateMaximized = async () => {
   isMaximized.value = await appWindow.isMaximized();
 };
 const setMinSize = async () => {
-  await appWindow.setSize(new LogicalSize(1200, 800));
+  await appWindow.setSize(new LogicalSize(1000, 700));
   await appWindow.center();
   await updateMaximized();
 };
@@ -48,7 +48,7 @@ onMounted(async () => {
     data-tauri-drag-region
     class="cursor-default select-none bg-[#F9EDA7] px-2 flex items-center justify-between border-b border-[#A0A0A0]"
   >
-    <div class="flex items-center text15 gap-2">
+    <div class="flex items-center gap-2">
       <div>
         <img
           class="size-5"
@@ -56,7 +56,7 @@ onMounted(async () => {
           alt=""
         />
       </div>
-      <span class="text15">Birhasap - kassa programma / Administrator</span>
+      <span class="text-color-black text-text-simple">Birhasap - kassa programma / Administrator</span>
     </div>
     <div class="flex items-center gap-1.5">
       <button

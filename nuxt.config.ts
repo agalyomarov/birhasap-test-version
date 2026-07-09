@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   telemetry: false,
-  css: ["./app/assets/css/main.css", "./app/assets/css/font-roboto.css"],
+  css: ["./app/assets/css/main.css", "./app/assets/css/font-roboto.css", "./app/assets/css/scrollbar.css"],
   app: {
     head: {
       script: [

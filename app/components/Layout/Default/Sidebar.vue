@@ -56,10 +56,10 @@ const list = Array.from({ length: 5 }).map((item, index) => {
             </defs>
           </svg>
         </div>
-        <span class="text14 text-nowrap text-ellipsis overflow-hidden">{{ value.title }}</span>
+        <span class="text-text-simple text-color-simple text-nowrap text-ellipsis overflow-hidden">{{ value.title }}</span>
       </li>
     </ul>
-    <ul class="bg-[#F2F2F2] flex-1 overflow-y-auto small-scrollbar">
+    <ul class="bg-[#F2F2F2] flex-1 overflow-y-auto ui-small-scrollbar">
       <li
         v-for="(value, index) in list"
         class="flex items-center gap-1.25 border-b border-[#A0A0A0]"
@@ -70,7 +70,7 @@ const list = Array.from({ length: 5 }).map((item, index) => {
           class="w-0.5 my-0.75 ml-1 bg-[#3B863B] h-6.75"
           :class="[index != activeIndex ? ' opacity-0' : '']"
         ></div>
-        <span class="text14 text-nowrap text-ellipsis overflow-hidden">Заголовок формы</span>
+        <span class="text-text-simple text-color-simple text-nowrap text-ellipsis overflow-hidden">Заголовок формы</span>
       </li>
     </ul>
   </aside>

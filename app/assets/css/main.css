@@ -6,6 +6,50 @@
 
 @theme {
   --font-sans: "Roboto", sans-serif;
+
+  --color-color-white: #ffffff;
+  --color-color-simple: #4d4d4d;
+  --color-color-text-hint: #807a59;
+  --color-color-border: #a0a0a1;
+  --color-color-link: #2e5aa9;
+  --color-color-group-title: #009646;
+  --color-color-warning: #f4cc4c;
+  --color-color-error: #ab403a;
+  --color-color-green-bg: #eefff1;
+  --color-color-red-bg: #ffeef0;
+  --color-color-yellow-bg: #fef3ca;
+  --color-color-black: #000000;
+  --color-color-grey-1: #545454;
+  --color-color-grey-2: #8a8a8a;
+  --color-color-grey-3: #a0a0a0;
+  --color-color-grey-4: #afafaf;
+  --color-color-grey-5: #c7c7c7;
+  --color-color-grey-6: #d6d6d6;
+  --color-color-grey-7: #e5e5e5;
+  --color-color-grey-8: #f2f2f2;
+  --color-color-green-1: #3b863b;
+  --color-color-green-2: #52956a;
+  --color-color-green-3: #cbe7ca;
+  --color-color-yellow-1: #f4cc4c;
+  --color-color-yellow-2: #fae69a;
+  --color-color-yellow-3: #f9eda7;
+  --color-color-yellow-4: #fcf2cc;
+  --color-color-yellow-5: #fffbe5;
+  --color-color-yellow-6: #ffffe8;
+  --color-color-brown-1: #bf7031;
+  --color-color-red-1: #eb3c30;
+  --color-color-red-2: #ab403a;
+  --color-color-blue-1: #2e5aa9;
+  --color-color-blue-2: #4988c3;
+  --color-color-blue-3: #29abe2;
+  --color-color-grey-brown: #c9c1b2;
+  --color-color-main-button-border: #b7a53b;
+
+  --text-text-simple: 14.666px;
+  --text-text-simple--line-height: 17.13px;
+
+  --text-text-windiw-title: 16.666px;
+  --text-text-windiw-title--line-height: 19.13px;
 }
 
 html,
@@ -19,34 +63,14 @@ body,
   padding: 0;
 }
 
-.text15 {
-  font-size: 15px;
-  line-height: 15px;
-}
-
-.text14 {
-  font-size: 14px;
-  line-height: 14px;
-}
-
 body {
   overflow: hidden;
 }
 
-.small-scrollbar::-webkit-scrollbar {
-  height: 5px !important;
-  width: 5px !important;
+.ui-main-button-bg {
+  background-color: linear-gradient(180deg, #fae960 0%, #fbe14c 51.39%, #e9d146 100%);
 }
 
-.small-scrollbar::-webkit-scrollbar-track,
-.small-scrollbar::-webkit-scrollbar-track:hover,
-.small-scrollbar::-webkit-scrollbar-track:active {
-  background-color: #d6d6d6 !important;
-}
-
-.small-scrollbar::-webkit-scrollbar-thumb,
-.small-scrollbar::-webkit-scrollbar-thumb:hover,
-.small-scrollbar::-webkit-scrollbar-thumb:active {
-  border-radius: 5px !important;
-  background-color: #a0a0a0 !important;
+.ui-main-button-bg:active {
+  background-color: linear-gradient(180deg, #cdb62c 4.17%, #ecd447 10.42%);
 }

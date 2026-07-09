@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <p class="text15 select-none">
+  <span class="select-none text-color-simple text-text-simple">
     <slot />
-  </p>
+  </span>
 </template>
 
 <style scoped></style>
