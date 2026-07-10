@@ -37,8 +37,11 @@ onUnmounted(() => {
       />
     </section>
     <section>
-      <ul class="grid grid-cols-3 gap-y-8">
-        <li v-for="value in 10">
+      <ul class="flex gap-x-15 2xl:gap-x-10 gap-y-7.5 flex-wrap">
+        <li
+          v-for="value in 10"
+          class="lg:w-1/3 2xl:w-1/4"
+        >
           <ByteLinkGroup />
         </li>
       </ul>
