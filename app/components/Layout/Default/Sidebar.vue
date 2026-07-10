@@ -12,8 +12,8 @@ const list = Array.from({ length: 5 }).map((item, index) => {
 });
 </script>
 <template>
-  <aside class="w-46 overflow-hidden h-full flex flex-col border-r border-[#A0A0A0] select-none">
-    <ul class="bg-[#F9EDA7] border-b border-[#A0A0A0]">
+  <aside class="w-46 overflow-hidden h-full flex flex-col border-r border-gray-a1 select-none">
+    <ul class="bg-yellow-a7 border-b border-gray-a1">
       <li
         v-for="(value, index) in list"
         class="flex items-center gap-3.5 py-2.5 pl-4"
@@ -56,21 +56,21 @@ const list = Array.from({ length: 5 }).map((item, index) => {
             </defs>
           </svg>
         </div>
-        <span class="text-text-simple text-color-simple text-nowrap text-ellipsis overflow-hidden">{{ value.title }}</span>
+        <span class="text-nowrap text-ellipsis overflow-hidden">{{ value.title }}</span>
       </li>
     </ul>
-    <ul class="bg-[#F2F2F2] flex-1 overflow-y-auto ui-small-scrollbar">
+    <ul class="bg-gray-f2 flex-1 overflow-y-auto ui-small-scrollbar">
       <li
         v-for="(value, index) in list"
-        class="flex items-center gap-1.25 border-b border-[#A0A0A0]"
+        class="flex items-center gap-1.25 border-b border-gray-a1"
         :class="[index == activeIndex ? ' bg-white' : '']"
         @click="activeIndex = index"
       >
         <div
-          class="w-0.5 my-0.75 ml-1 bg-[#3B863B] h-6.75"
+          class="w-0.5 my-0.75 ml-1 bg-green-3b h-6.75"
           :class="[index != activeIndex ? ' opacity-0' : '']"
         ></div>
-        <span class="text-text-simple text-color-simple text-nowrap text-ellipsis overflow-hidden">Заголовок формы</span>
+        <span class="text-nowrap text-ellipsis overflow-hidden">Заголовок формы</span>
       </li>
     </ul>
   </aside>

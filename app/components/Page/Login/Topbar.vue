@@ -30,7 +30,7 @@ const handleCloseWindow = async () => {
       </span>
     </div>
     <button
-      class="hover:bg-gray-e5 cursor-pointer outline-0"
+      class="hover:bg-gray-e5 cursor-pointer"
       @click="handleCloseWindow()"
     >
       <svg

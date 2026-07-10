@@ -46,7 +46,7 @@ onMounted(async () => {
 <template>
   <header
     data-tauri-drag-region
-    class="cursor-default select-none bg-[#F9EDA7] px-2 flex items-center justify-between border-b border-[#A0A0A0]"
+    class="cursor-default select-none bg-yellow-a7 px-2 flex items-center justify-between border-b border-gray-a1"
   >
     <div class="flex items-center gap-2">
       <div>
@@ -56,11 +56,11 @@ onMounted(async () => {
           alt=""
         />
       </div>
-      <span class="text-color-black text-text-simple">Birhasap - kassa programma / Administrator</span>
+      <span>Birhasap - kassa programma / Administrator</span>
     </div>
     <div class="flex items-center gap-1.5">
       <button
-        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
+        class="hover:bg-yellow-4c cursor-pointer size-7.5 flex items-center justify-center"
         @click="appWindow.minimize()"
       >
         <svg
@@ -82,7 +82,7 @@ onMounted(async () => {
       <template v-if="!isFullScreen">
         <button
           v-if="!isMaximized"
-          class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
+          class="hover:bg-yellow-4c cursor-pointer size-7.5 flex items-center justify-center"
           @click="setWorkspaceSize()"
         >
           <svg
@@ -103,7 +103,7 @@ onMounted(async () => {
         </button>
         <button
           v-else
-          class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
+          class="hover:bg-yellow-4c cursor-pointer size-7.5 flex items-center justify-center"
           @click="setMinSize()"
         >
           <svg
@@ -128,7 +128,7 @@ onMounted(async () => {
         </button>
       </template>
       <button
-        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 p-1 size-7.5 flex items-center justify-center"
+        class="hover:bg-yellow-4c cursor-pointer p-1 size-7.5 flex items-center justify-center"
         @click="setFullScreen(!isFullScreen)"
       >
         <svg
@@ -184,7 +184,7 @@ onMounted(async () => {
         </svg>
       </button>
       <button
-        class="hover:bg-[#F4CC4C] cursor-pointer outline-0 size-7.5 flex items-center justify-center"
+        class="hover:bg-yellow-4c cursor-pointer size-7.5 flex items-center justify-center"
         @click="appWindow.close()"
       >
         <svg

@@ -20,11 +20,11 @@ const handleDelete = (index: number) => {
 };
 </script>
 <template>
-  <ul class="border-b border-[#A0A0A0] bg-[#F2F2F2] flex items-center overflow-x-auto ui-small-scrollbar select-none">
+  <ul class="border-b border-gray-a1 bg-gray-f2 flex items-center overflow-x-auto ui-small-scrollbar select-none">
     <li
       v-for="(value, index) in list"
-      class="border-r cursor-default flex items-center relative h-8.25"
-      :class="[activeIndex == index ? 'bg-white' : 'border-[#A0A0A0]']"
+      class="border-r cursor-default flex items-center relative h-8.25 border-gray-a1"
+      :class="[activeIndex == index ? 'bg-white' : '']"
       @click="activeIndex = index"
     >
       <div class="flex items-center gap-1.75 px-3">
@@ -63,9 +63,10 @@ const handleDelete = (index: number) => {
             </defs>
           </svg>
         </div>
-        <span class="text-text-simple text-color-simple text-nowrap">{{ value.title }}</span>
+        <span class="text-nowrap">{{ value.title }}</span>
         <div
           v-if="index != 0"
+          class="pb-0.5"
           :class="[activeIndex == index ? 'cursor-pointer' : '']"
           @click="handleDelete(index)"
         >
@@ -110,7 +111,7 @@ const handleDelete = (index: number) => {
         </div>
       </div>
       <div
-        class="h-0.5 bg-[#3B863B] absolute bottom-0.75 left-1.25 right-1.25"
+        class="h-0.5 bg-green-3b absolute bottom-0.75 left-1.25 right-1.25"
         :class="[activeIndex > 0 && activeIndex == index ? '' : ' opacity-0']"
       ></div>
     </li>

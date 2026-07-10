@@ -1,16 +1,39 @@
 <script setup lang="ts">
-const searchRef = ref<string | null>(null);
+import BitFieldText from "~/components/Bit/Field/Text.vue";
+const searchValueRef = ref<string | null>(null);
 const handleClearSearch = () => {
-  searchRef.value = null;
+  searchValueRef.value = null;
 };
+const searchInputRef = ref<InstanceType<typeof BitFieldText> | null>(null);
+
+const handleKeyDown = (event: KeyboardEvent): void => {
+  const isMac = navigator.userAgent.includes("Mac");
+  const isModifierPressed = isMac ? event.metaKey : event.ctrlKey;
+  if (isModifierPressed && event.key.toLowerCase() === "f") {
+    event.preventDefault();
+    if (searchInputRef.value) {
+      searchInputRef.value.focusInput();
+    }
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeyDown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeyDown);
+});
 </script>
 <template>
   <main class="p-[15px_15px_15px_22px]">
     <section class="flex justify-end w-full mb-12.5">
-      <ByteFieldTextButton
-        placeholder="Gozleg (Ctrl+F)"
-        v-model="searchRef"
+      <BitFieldText
+        ref="searchInputRef"
+        placeholder="Gozleg (Ctrl+F) / (Cmd+F)"
+        v-model="searchValueRef"
         @clear="handleClearSearch()"
+        :hasClear="true"
       />
     </section>
     <section>
