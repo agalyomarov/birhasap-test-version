@@ -9,10 +9,10 @@ const { isOpan, type, content, closeModal } = useModal();
     v-if="isOpan && type == 'warning'"
     class="fixed inset-0 flex items-center justify-center select-none"
   >
-    <div class="p-4 w-fit max-w-[320px] z-10 bg-white border border-[#A0A0A1] modal">
+    <div class="p-4 w-fit max-w-85 z-10 bg-white border border-gray-a1 modal">
       <div class="flex justify-end">
         <button
-          class="hover:bg-[#ececec] cursor-pointer outline-0"
+          class="hover:bg-gray-ec cursor-pointer"
           @click="closeModal()"
         >
           <svg
@@ -43,7 +43,7 @@ const { isOpan, type, content, closeModal } = useModal();
           </svg>
         </button>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-4">
         <div>
           <svg
             width="65"
@@ -68,16 +68,16 @@ const { isOpan, type, content, closeModal } = useModal();
             />
           </svg>
         </div>
-        <p class="text-text-simple text-color-simple text-center">{{ content }}</p>
+        <p class="">{{ content }}</p>
       </div>
       <div class="flex gap-4 justify-end">
-        <UIButton
+        <BitButton
           :ui="ButtonUI.Main"
           :type="ButtonType.Button"
           @click="closeModal()"
         >
-          <div class="px-4 text-text-simple">OK</div>
-        </UIButton>
+          <div class="px-4">OK</div>
+        </BitButton>
       </div>
     </div>
   </div>

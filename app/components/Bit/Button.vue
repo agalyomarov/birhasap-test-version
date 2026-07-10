@@ -11,12 +11,9 @@ const props = defineProps<{
   <button
     :type="props.type"
     :class="[
-      props.ui == ButtonUI.Simple &&
-        'outline-0 border border-[#B3B3B3] rounded-xs  select-none h-7.5  text-color-simple text-text-simple  px-4  cursor-pointer btn--simple',
-      props.ui == ButtonUI.Main &&
-        'outline-0 border border-[#B7A53B]  h-7.5 text-color-simple text-text-simple rounded-xs select-none px-4 cursor-pointer font-bold btn--main',
-      props.ui == ButtonUI.Disabled &&
-        'outline-0 border border-[#B3B3B3] rounded-xs select-none  h-7.5 text-color-simple text-text-simple px-4  cursor-not-allowed btn--disabled opacity-50',
+      props.ui == ButtonUI.Simple && 'border border-gray-b3 rounded-xs  select-none h-7.5 px-4 cursor-pointer btn--simple',
+      props.ui == ButtonUI.Main && 'border border-yellow-3b h-7.5 rounded-xs select-none px-4 cursor-pointer font-bold btn--main',
+      props.ui == ButtonUI.Disabled && 'border border-gray-b3 rounded-xs select-none  h-7.5  px-4  cursor-not-allowed btn--disabled opacity-50',
     ]"
   >
     <slot />
@@ -31,7 +28,7 @@ const props = defineProps<{
 
 .btn--simple:active {
   background: linear-gradient(180deg, #c8c8c8 4.17%, #ebebeb 10.42%);
-  border-color: #8b8b8b;
+  border-color: var(--color-gray-8a);
 }
 
 .btn--disabled {

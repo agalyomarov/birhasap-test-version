@@ -24,13 +24,13 @@ const handleCloseWindow = async () => {
       />
       <span
         data-tauri-drag-region
-        class="text-color-black text-text-windiw-title"
+        class="text-black text-windiw-title"
       >
         <slot />
       </span>
     </div>
     <button
-      class="hover:bg-[#ececec] cursor-pointer outline-0"
+      class="hover:bg-gray-e5 cursor-pointer outline-0"
       @click="handleCloseWindow()"
     >
       <svg

@@ -58,48 +58,52 @@ onMounted(async () => {
     v-if="!hideContent"
     class="p-4 select-none"
   >
-    <PageLoginTitlebar>Birhasaba girmek</PageLoginTitlebar>
+    <PageLoginTopbar>Birhasaba girmek</PageLoginTopbar>
     <form
       class="mt-7"
       @submit.prevent="handleSubmit()"
     >
       <label class="flex items-center justify-between mb-5">
-        <UIFieldTitle>Ulanyjy</UIFieldTitle>
-        <UIFieldText v-model.trim="lowercaseName" />
+        <BitFieldTitle>Ulanyjy</BitFieldTitle>
+        <BitFieldText
+          v-model.trim="lowercaseName"
+          class="w-70"
+        />
       </label>
       <label class="flex items-center justify-between mb-7">
-        <UIFieldTitle>Pinkod</UIFieldTitle>
-        <UIFieldText
+        <BitFieldTitle>Pinkod</BitFieldTitle>
+        <BitFieldText
           v-model.trim="lowercasePassword"
           type="password"
+          class="w-70"
         />
       </label>
       <div class="flex gap-4 justify-end">
-        <UIButton
+        <BitButton
           :ui="ButtonUI.Disabled"
           :type="ButtonType.Button"
           v-if="lowercaseName.length < 4 || lowercasePassword.length < 4"
         >
           Dowam etmek
-        </UIButton>
-        <UIButton
+        </BitButton>
+        <BitButton
           v-else
           :ui="ButtonUI.Simple"
           :type="ButtonType.Submit"
         >
           Dowam etmek
-        </UIButton>
-        <UIButton
+        </BitButton>
+        <BitButton
           :ui="ButtonUI.Simple"
           :type="ButtonType.Button"
           @click="handleCloseWindow()"
         >
           Yapmak
-        </UIButton>
+        </BitButton>
       </div>
     </form>
   </main>
-  <UIModalWarning />
+  <ByteModalWarning />
 </template>
 
 <style scoped></style>

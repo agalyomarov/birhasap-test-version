@@ -12,7 +12,7 @@ const list = Array.from({ length: 5 }).map((item, index) => {
 });
 </script>
 <template>
-  <aside class="w-46 overflow-hidden border-b h-full flex flex-col border-r border-[#A0A0A0] select-none">
+  <aside class="w-46 overflow-hidden h-full flex flex-col border-r border-[#A0A0A0] select-none">
     <ul class="bg-[#F9EDA7] border-b border-[#A0A0A0]">
       <li
         v-for="(value, index) in list"
