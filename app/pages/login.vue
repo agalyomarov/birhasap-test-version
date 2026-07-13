@@ -80,16 +80,9 @@ onMounted(async () => {
       </label>
       <div class="flex gap-4 justify-end">
         <BitButton
-          :ui="ButtonUI.Disabled"
-          :type="ButtonType.Button"
-          v-if="lowercaseName.length < 4 || lowercasePassword.length < 4"
-        >
-          Dowam etmek
-        </BitButton>
-        <BitButton
-          v-else
           :ui="ButtonUI.Text"
           :type="ButtonType.Submit"
+          :is-disabled="lowercaseName.length < 4 || lowercasePassword.length < 4"
         >
           Dowam etmek
         </BitButton>

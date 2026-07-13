@@ -75,6 +75,7 @@ const { isOpan, type, content, closeModal } = useModal();
           :ui="ButtonUI.Main"
           :type="ButtonType.Button"
           @click="closeModal()"
+          :is-disabled="true"
         >
           <div class="px-4">OK</div>
         </BitButton>

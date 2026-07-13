@@ -4,19 +4,30 @@ import { ButtonUI } from "~/enums/button-ui";
 const props = defineProps<{
   ui: ButtonUI;
   type?: ButtonType;
+  isDisabled?: boolean;
 }>();
 </script>
 
 <template>
+  <!-- TODO: -->
   <button
     :type="props.type ?? 'button'"
     :class="[
-      props.ui == ButtonUI.Text && 'border border-gray-b3 rounded-xs  select-none h-7.5 px-4 cursor-pointer btn--simple',
-      props.ui == ButtonUI.IconText && 'border border-gray-b3 rounded-xs  select-none h-7.5 pl-1.5 pr-3 cursor-pointer btn--simple',
-      props.ui == ButtonUI.Icon && 'border border-gray-b3 rounded-xs  select-none size-7.5 cursor-pointer btn--simple',
-      props.ui == ButtonUI.Main && 'border border-yellow-3b h-7.5 rounded-xs select-none px-4 cursor-pointer font-bold btn--main',
-      props.ui == ButtonUI.Disabled && 'border border-gray-b3 rounded-xs select-none  h-7.5  px-4  cursor-not-allowed btn--disabled opacity-50',
+      props.ui == ButtonUI.Text ? 'border border-gray-b3 rounded-xs  select-none h-7.5 px-4 cursor-pointer' : '',
+      props.ui == ButtonUI.Text && !isDisabled ? 'btn--simple' : '',
+
+      props.ui == ButtonUI.IconText ? 'border border-gray-b3 rounded-xs  select-none h-7.5 pl-1.5 pr-3 cursor-pointer ' : '',
+      props.ui == ButtonUI.IconText && !isDisabled ? ' btn--simple' : '',
+
+      props.ui == ButtonUI.Icon ? 'border border-gray-b3 rounded-xs  select-none size-7.5 cursor-pointer ' : '',
+      props.ui == ButtonUI.Icon && !isDisabled ? 'btn--simple' : '',
+
+      props.ui == ButtonUI.Main && !isDisabled ? 'border border-yellow-3b h-7.5 rounded-xs select-none px-4 cursor-pointer font-bold btn--main' : '',
+      props.ui == ButtonUI.Main && isDisabled ? 'border border-gray-b3 h-7.5 rounded-xs select-none px-4 cursor-pointer font-bold btn--disabled' : '',
+
+      isDisabled ? 'opacity-50 cursor-not-allowed btn--disabled' : '',
     ]"
+    :disabled="isDisabled ?? false"
   >
     <slot />
   </button>

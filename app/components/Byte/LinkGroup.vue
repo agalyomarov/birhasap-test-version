@@ -34,7 +34,7 @@ const links = [
           :to="link.href"
           class="group/link flex items-center gap-1.5"
         >
-          <div class="group/parent py-1.5">
+          <div class="group/parent py-1">
             <svg
               width="20"
               height="20"
