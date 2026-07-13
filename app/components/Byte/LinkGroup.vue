@@ -6,9 +6,9 @@ const links = [
     href: AppRoutes.harytlar(),
   },
   {
-    title: "Beyleki bolumler/Beyleki bolumler 1",
+    title: "Satuwlar",
     is_favorited: false,
-    href: "#",
+    href: AppRoutes.satuwlar(),
   },
   {
     title: "Beyleki bolumler 2",
@@ -24,7 +24,7 @@ const links = [
 </script>
 <template>
   <article>
-    <header class="text-windiw-title text-green-46 mb-3.75 select-none">Harytlar</header>
+    <header class="text-h2 text-green-46 mb-3.75 select-none">Harytlar</header>
     <ul class="">
       <li
         v-for="link in links"

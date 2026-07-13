@@ -18,9 +18,11 @@
   --color-gray-af: #afafaf;
   --color-gray-b3: #b3b3b3;
   --color-gray-c7: #c7c7c7;
+  --color-gray-cc: #cccccc;
   --color-gray-d6: #d6d6d6;
-  --color-gray-e5: #e5e5e5;
+  --color-gray-e6: #e5e6e6;
   --color-gray-f2: #f2f2f2;
+  --color-gray-fa: #fafafa;
   --color-gray-ec: #ececec;
 
   --color-green-46: #009646;
@@ -50,11 +52,14 @@
   --color-brown-31: #bf7031;
   --color-brown-b2: #c9c1b2;
 
-  --text-simple: 15.333px;
-  --text-simple--line-height: 18.333px;
+  --text-simple: 14px;
+  --text-simple--line-height: 17px;
 
-  --text-windiw-title: 16.666px;
-  --text-windiw-title--line-height: 19.13px;
+  --text-h1: 19px;
+  --text-h1--line-height: 22px;
+
+  --text-h2: 16px;
+  --text-h2--line-height: 19px;
 }
 
 html,
@@ -83,6 +88,18 @@ body {
 button,
 input {
   outline: none;
+}
+
+* {
+  min-height: 0px;
+}
+
+.wrapper {
+  padding: 0px 12px 4px 20px;
+}
+
+.command-panel {
+  height: 42px;
 }
 
 .ui-main-button-bg {

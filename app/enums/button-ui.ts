@@ -1,5 +1,7 @@
 export enum ButtonUI {
-  Simple = "simple",
+  Text = "text",
   Main = "main",
   Disabled = "disabled",
+  IconText = "icon-text",
+  Icon = "icon",
 }

@@ -24,7 +24,7 @@ const handleCloseWindow = async () => {
       />
       <span
         data-tauri-drag-region
-        class="text-black text-windiw-title"
+        class="text-black text-h2"
       >
         <slot />
       </span>

@@ -26,8 +26,8 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <main class="p-[15px_15px_15px_22px]">
-    <section class="flex justify-end w-full mb-12.5">
+  <div class="wrapper overflow-y-auto">
+    <section class="command-panel flex justify-end items-center mb-15">
       <BitFieldText
         ref="searchInputRef"
         placeholder="Gozleg (Ctrl+F) / (Cmd+F)"
@@ -46,7 +46,7 @@ onUnmounted(() => {
         </li>
       </ul>
     </section>
-  </main>
+  </div>
 </template>
 
 <style scoped></style>

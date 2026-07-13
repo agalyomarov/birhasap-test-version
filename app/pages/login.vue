@@ -88,13 +88,13 @@ onMounted(async () => {
         </BitButton>
         <BitButton
           v-else
-          :ui="ButtonUI.Simple"
+          :ui="ButtonUI.Text"
           :type="ButtonType.Submit"
         >
           Dowam etmek
         </BitButton>
         <BitButton
-          :ui="ButtonUI.Simple"
+          :ui="ButtonUI.Text"
           :type="ButtonType.Button"
           @click="handleCloseWindow()"
         >

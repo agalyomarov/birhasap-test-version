@@ -27,7 +27,7 @@ defineExpose({
     <input
       ref="inputRef"
       v-model="model"
-      class="w-67.5 h-7.5 p-1.5"
+      class="w-67.5 h-7 p-1.5"
       autocapitalize="off"
       autocomplete="off"
       autocorrect="off"
@@ -38,7 +38,7 @@ defineExpose({
     <button
       v-if="hasClear"
       type="button"
-      class="w-6.5 h-7.5 flex items-center justify-center cursor-pointer border-l border-gray-a1"
+      class="w-6.5 h-7 flex items-center justify-center cursor-pointer border-l border-gray-a1"
       @click="emits('clear')"
     >
       <svg

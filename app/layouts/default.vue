@@ -3,10 +3,10 @@
 <template>
   <LayoutDefaultTopbar />
   <LayoutDefaultListActivePages />
-  <div class="flex items-start flex-1 relative overflow-y-auto">
-    <LayoutDefaultSidebar class="sticky left-0 top-0" />
-    <NuxtPage class="flex-1 overflow-y-auto" />
-  </div>
+  <main class="flex-1 grid grid-cols-[184px_auto]">
+    <LayoutDefaultSidebar />
+    <NuxtPage class="min-w-0" />
+  </main>
   <LayoutDefaultBottombar />
 </template>
 
