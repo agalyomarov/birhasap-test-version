@@ -1,16 +1,11 @@
-<script setup lang="ts">
-import { ButtonUI } from "~/enums/button-ui";
-</script>
+<script setup lang="ts"></script>
 <template>
   <div class="wrapper flex flex-col">
     <ByteFormPanel />
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">
-          <BitButton
-            :ui="ButtonUI.IconText"
-            class="flex items-center gap-1.5"
-          >
+          <BitButtonIconText>
             <div>
               <svg
                 width="16"
@@ -48,11 +43,8 @@ import { ButtonUI } from "~/enums/button-ui";
               </svg>
             </div>
             <span>Goshmak</span>
-          </BitButton>
-          <BitButton
-            :ui="ButtonUI.Icon"
-            class="flex justify-center items-center"
-          >
+          </BitButtonIconText>
+          <BitButtonIcon :is-disabled="true">
             <svg
               width="16"
               height="16"
@@ -87,11 +79,8 @@ import { ButtonUI } from "~/enums/button-ui";
                 />
               </defs>
             </svg>
-          </BitButton>
-          <BitButton
-            :ui="ButtonUI.Icon"
-            class="flex justify-center items-center"
-          >
+          </BitButtonIcon>
+          <BitButtonIcon :is-disabled="true">
             <svg
               width="16"
               height="16"
@@ -126,7 +115,7 @@ import { ButtonUI } from "~/enums/button-ui";
                 />
               </defs>
             </svg>
-          </BitButton>
+          </BitButtonIcon>
         </li>
         <li>
           <BitFieldText

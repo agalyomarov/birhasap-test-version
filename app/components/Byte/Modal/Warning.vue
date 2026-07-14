@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ButtonType } from "~/enums/button-type";
-import { ButtonUI } from "~/enums/button-ui";
 
 const { isOpan, type, content, closeModal } = useModal();
 </script>
@@ -71,14 +70,12 @@ const { isOpan, type, content, closeModal } = useModal();
         <p class="">{{ content }}</p>
       </div>
       <div class="flex gap-4 justify-end">
-        <BitButton
-          :ui="ButtonUI.Main"
+        <BitButtonMainText
           :type="ButtonType.Button"
           @click="closeModal()"
-          :is-disabled="true"
         >
           <div class="px-4">OK</div>
-        </BitButton>
+        </BitButtonMainText>
       </div>
     </div>
   </div>
