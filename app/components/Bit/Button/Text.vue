@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ButtonType } from "~/enums/button-type";
+import type { ButtonTypeEnum } from "~/enums/button-type-enum";
 const props = defineProps<{
-  type?: ButtonType;
+  type?: ButtonTypeEnum;
   isDisabled?: boolean;
 }>();
 </script>
