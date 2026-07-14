@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import titlebarLogoImg from "~/assets/images/titlebar-logo.png";
-import { getCurrentWindow, currentMonitor, LogicalSize, PhysicalSize, PhysicalPosition, LogicalPosition } from "@tauri-apps/api/window";
+import { getCurrentWindow, currentMonitor, LogicalSize } from "@tauri-apps/api/window";
 const appWindow = getCurrentWindow();
 const isMaximized = ref(false);
 const isFullScreen = ref(false);
@@ -29,10 +29,20 @@ const setFullScreen = async (val: boolean) => {
   isFullScreen.value = val;
   if (val) {
     await setWorkspaceSize();
-    await appWindow.setSimpleFullscreen(val);
+    try {
+      await appWindow.setFullscreen(val);
+    } catch (error) {
+      console.log(error);
+    }
   } else {
-    await appWindow.setSimpleFullscreen(val);
-    await setWorkspaceSize();
+    try {
+      await appWindow.setFullscreen(val);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      await new Promise((r) => setTimeout(r, 1000));
+      await setWorkspaceSize();
+    }
   }
 };
 
