@@ -2,6 +2,18 @@
 const selectedIndex = ref<number | null>(null);
 const tableColumns = [
   {
+    key: "number",
+    title: "№",
+    sorted: false,
+    canSort: false,
+  },
+  {
+    key: "id",
+    title: "ID",
+    sorted: true,
+    canSort: true,
+  },
+  {
     key: "name",
     title: "Harydyn ady",
     sorted: true,
@@ -29,6 +41,8 @@ const tableColumns = [
 
 const tableRows = Array.from({ length: 100 }).map((v, index) => {
   return {
+    number: index + 1,
+    id: index + 1,
     name: `Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady  Test haryt ${index + 1} ady `,
     price: `${index + 1}000,00`,
     amount: `${index + 1}00,000`,
@@ -45,10 +59,10 @@ const tableRows = Array.from({ length: 100 }).map((v, index) => {
           <th
             v-for="column in tableColumns"
             :key="column.key"
-            class="sticky top-0"
+            class="sticky top-0 border-tb border-gray-e6"
           >
             <button
-              class="px-2 h-7.5 w-full text-start font-medium flex items-center justify-between gap-3 bg-gray-e6 border-r border-white"
+              class="px-2 h-7.5 w-full text-start font-medium flex items-center justify-between gap-2 bg-gray-e6 active:bg-gray-d6 border-r border-white"
               :class="[column.canSort ? 'cursor-pointer' : ' cursor-default']"
             >
               <span class="text-nowrap"> {{ column.title }}</span>
@@ -80,13 +94,13 @@ const tableRows = Array.from({ length: 100 }).map((v, index) => {
       <tbody class="">
         <tr
           v-for="(row, index) in tableRows"
-          class="border-b border-gray-e6 cursor-default even:bg-gray-fa"
+          class="cursor-default  border-gray-f2""
           @click="selectedIndex = index"
         >
           <td
             v-for="(value, key) in row"
             :key="key"
-            class="pl-2 h-7.5 border-r border-white text-nowrap min-w-0 max-w-225 truncate"
+            class="pl-2 h-7.5 text-nowrap min-w-0 max-w-225 truncate border-[0px_1px_1px_0] border-gray-f2"
             :class="[selectedIndex === index ? ' bg-yellow-a7' : '']"
           >
             {{ value }}

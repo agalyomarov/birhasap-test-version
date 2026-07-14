@@ -1,13 +1,7 @@
-<script setup lang="ts">
-import { NavigationButtonUI } from "~/enums/navigation-button-ui";
-</script>
+<script setup lang="ts"></script>
 <template>
   <section class="form-panel h-10.5 flex items-center justify-between">
-    <ul class="flex items-center gap-2.5">
-      <li>
-        <BitNavigationButton :ui="NavigationButtonUI.Left" />
-        <BitNavigationButton :ui="NavigationButtonUI.Right" />
-      </li>
+    <ul class="flex items-center gap-2">
       <li>
         <svg
           width="24"
