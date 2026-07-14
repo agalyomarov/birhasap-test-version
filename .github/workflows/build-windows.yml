@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2025
 
     permissions:
       contents: read
@@ -20,14 +20,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install Node dependencies
         run: npm ci
 
       - name: Build Nuxt static
-        run: npm run build
+        run: npm run generate
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -41,11 +41,8 @@ jobs:
             src-tauri/target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli
-
-      - name: Build Tauri Windows
-        run: cargo tauri build
+      - name: Build Tauri
+        run: npx tauri build
 
       - name: Upload Windows installer
         uses: actions/upload-artifact@v4
