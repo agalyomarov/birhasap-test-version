@@ -1,13 +1,23 @@
 <script setup lang="ts" generic="TRow extends TableRowBaseDto">
 import type { TableColumnDto } from "~/dto/TableColumnDto";
 import type { TableDataDto } from "~/dto/TableDataDto";
+import { createTableOrderDto, type TableOrderDto } from "~/dto/TableOrderDto";
 import type { TableRowBaseDto } from "~/dto/TableRowBaseDto";
-import { TableOrder } from "~/enums/table-sort-type";
+import { TableColumnOrderEnum } from "~/enums/table-column-order-enum";
 
-const props = defineProps<{ data: TableDataDto<TRow> }>();
-const emit = defineEmits(["selected", "sorted"]);
-
+const tableContainer = ref<HTMLElement | null>(null);
+const props = defineProps<{ data: TableDataDto<TRow>; order: TableOrderDto | null }>();
+const emit = defineEmits(["selected", "sorted", "loadMore"]);
 const selectedId = ref<number | null>(null);
+
+const handleScroll = () => {
+  const el = tableContainer.value;
+  if (!el) return;
+  const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 10;
+  if (isBottom) {
+    emit("loadMore");
+  }
+};
 
 const handleSelect = (id: number) => {
   selectedId.value = id;
@@ -15,21 +25,28 @@ const handleSelect = (id: number) => {
 };
 
 const handleSort = (column: TableColumnDto<TRow>) => {
-  let newSort = null;
-  if (column.sort === null) {
-    newSort = TableOrder.Asc;
-  } else if (column.sort === TableOrder.Asc) {
-    newSort = TableOrder.Desc;
+  if (props.order === null) {
+    emit("sorted", createTableOrderDto({ key: column.key, order: TableColumnOrderEnum.Asc }));
+    return;
   }
-  emit("sorted", {
-    column: column.key,
-    order: newSort,
-  });
+  if (column.key !== props.order.key) {
+    emit("sorted", createTableOrderDto({ key: column.key, order: TableColumnOrderEnum.Asc }));
+    return;
+  }
+  if (column.key === props.order.key && props.order.order === TableColumnOrderEnum.Asc) {
+    emit("sorted", createTableOrderDto({ key: column.key, order: TableColumnOrderEnum.Desc }));
+  } else {
+    emit("sorted", null);
+  }
 };
 </script>
 
 <template>
-  <div class="overflow-auto min-w-0">
+  <div
+    ref="tableContainer"
+    class="overflow-auto min-w-0 border-[0px_1px_0px_1px] border-gray-f2"
+    @scroll="handleScroll"
+  >
     <table class="w-full bg-white table">
       <thead class="">
         <tr class="">
@@ -48,7 +65,7 @@ const handleSort = (column: TableColumnDto<TRow>) => {
               <span class="text-nowrap"> {{ column.title }}</span>
               <div
                 v-if="column.canSort"
-                :class="[column.sort === null ? ' opacity-0' : '', column.sort === TableOrder.Desc ? ' rotate-180' : '']"
+                :class="[order?.key !== column.key ? ' opacity-0' : '', order?.order === TableColumnOrderEnum.Desc ? ' rotate-180' : '']"
               >
                 <svg
                   width="6"
@@ -77,10 +94,15 @@ const handleSort = (column: TableColumnDto<TRow>) => {
       <tbody class="">
         <tr
           v-for="(row, index) in data.rows"
-          class="cursor-default border-l border-gray-f2"
+          :key="row.id"
+          v-memo="[selectedId === row.id]"
+          class="cursor-default"
           @click="handleSelect(row.id as number)"
         >
-          <td :class="[selectedId === row.id ? ' bg-yellow-a7' : '']">
+          <td
+            class=" "
+            :class="[selectedId === row.id ? ' bg-yellow-a7' : '']"
+          >
             {{ index + 1 }}
           </td>
           <template v-for="(value, key) in row">
@@ -109,7 +131,7 @@ th button {
 }
 
 td {
-  @apply px-2 h-7.5 text-nowrap max-w-225 truncate border-[0px_1px_1px_0] border-gray-f2 min-w-10;
+  @apply px-2 h-7.5 text-nowrap max-w-225 truncate border-[0px_1px_1px_0px] border-gray-f2 min-w-10;
 }
 
 table {

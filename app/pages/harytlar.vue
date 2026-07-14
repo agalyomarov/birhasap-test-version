@@ -1,54 +1,42 @@
 <script setup lang="ts">
-import { createProductTableRowDto } from "~/dto/ProductTableRowDto";
+import { createProductTableRowDto, type ProductTableRowDto } from "~/dto/ProductTableRowDto";
 import { createTableColumnDto } from "~/dto/TableColumnDto";
 import { createTableDataDto } from "~/dto/TableDataDto";
-import { TableOrder } from "~/enums/table-sort-type";
+import type { TableOrderDto } from "~/dto/TableOrderDto";
+import { TableColumnOrderEnum } from "~/enums/table-column-order-enum";
 
+const page = ref(1);
+const order = ref<TableOrderDto | null>(null);
 const selectedId = ref<number | null>(null);
 const productTableColumns = ref([
   createTableColumnDto({
     key: "id",
     title: "ID",
-    sort: null,
     canSort: true,
   }),
   createTableColumnDto({
     key: "name",
     title: "Harydyn ady",
-    sort: null,
     canSort: true,
   }),
   createTableColumnDto({
     key: "price",
     title: "Harydyn bahasy",
-    sort: null,
     canSort: true,
   }),
   createTableColumnDto({
     key: "amount",
     title: "Mukdary",
-    sort: null,
     canSort: true,
   }),
   createTableColumnDto({
     key: "dimension",
     title: "Olceg birligi",
-    sort: null,
     canSort: false,
   }),
 ]);
 
-const productTableRows = ref(
-  Array.from({ length: 1000 }).map((v, index) => {
-    return createProductTableRowDto({
-      id: index + 1000,
-      name: `Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady  Test haryt ${index + 1} ady `,
-      price: (index + 1) * 1000.0,
-      amount: (index + 1) * 100.0,
-      dimension: "sany",
-    });
-  }),
-);
+const productTableRows = ref<ProductTableRowDto[]>([]);
 
 const productTableData = ref(
   createTableDataDto({
@@ -57,30 +45,45 @@ const productTableData = ref(
   }),
 );
 
+const fetchProductData = () => {
+  order.value = null;
+  productTableRows.value = Array.from({ length: page.value * 100 }).map((v, index) => {
+    return createProductTableRowDto({
+      id: index + 1,
+      name: `Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady  Test haryt ${index + 1} ady `,
+      price: (index + 1) * 1000.0,
+      amount: (index + 1) * 100.0,
+      dimension: "sany",
+    });
+  });
+};
+
 const handleSelectId = (id: number) => {
   selectedId.value = id;
 };
 
-const handleSort = (param: { column: string; order: TableOrder | null }) => {
-  productTableColumns.value = productTableColumns.value.map((column) => {
-    if (column.key == param.column) {
-      column.sort = param.order;
-    } else {
-      column.sort = null;
-    }
-    return column;
-  });
-
+const handleSort = (newOrder: TableOrderDto | null) => {
+  order.value = newOrder;
   productTableRows.value = productTableRows.value.sort((a, b) => {
-    const order = param.order ?? TableOrder.Asc;
-    const column = (param.order === null ? "id" : param.column) as Exclude<keyof typeof a, "__type">;
+    const order = newOrder?.order ?? TableColumnOrderEnum.Asc;
+    const column = (newOrder === null ? "id" : newOrder.key) as Exclude<keyof typeof a, "__type">;
     const aValue = a[column];
     const bValue = b[column];
     if (aValue === bValue) return 0;
     const result = aValue > bValue ? 1 : -1;
-    return order === TableOrder.Asc ? result : -result;
+    return order === TableColumnOrderEnum.Asc ? result : -result;
   });
 };
+
+const loadNextPage = () => {
+  if (page.value < 10) {
+    page.value += 1;
+  }
+};
+
+watch([page], () => {
+  fetchProductData();
+});
 
 watch(
   [productTableColumns, productTableRows],
@@ -92,6 +95,10 @@ watch(
   },
   { deep: true },
 );
+
+onMounted(() => {
+  fetchProductData();
+});
 </script>
 <template>
   <div class="wrapper flex flex-col">
@@ -222,8 +229,10 @@ watch(
     <ByteTable
       class="flex-1"
       :data="productTableData"
+      :order="order"
       @selected="handleSelectId"
       @sorted="handleSort"
+      @loadMore="loadNextPage"
     />
   </div>
 </template>

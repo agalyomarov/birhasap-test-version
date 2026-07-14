@@ -1,9 +1,6 @@
-import type { TableSortType } from "~/enums/table-sort-type";
-
 export type TableColumnDto<TRow extends object> = {
   key: keyof TRow & string;
   title: string;
-  sort: TableSortType | null;
   canSort: boolean;
   __type: "TableColumnDto";
 };
