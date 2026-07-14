@@ -27,22 +27,10 @@ const setWorkspaceSize = async () => {
 
 const setFullScreen = async (val: boolean) => {
   isFullScreen.value = val;
-  if (val) {
-    // await setWorkspaceSize();
-    try {
-      await appWindow.setSimpleFullscreen(val);
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    try {
-      await appWindow.setSimpleFullscreen(val);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      // await new Promise((r) => setTimeout(r, 1000));
-      // await setWorkspaceSize();
-    }
+  try {
+    await appWindow.setFullscreen(val);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -138,7 +126,7 @@ onMounted(async () => {
         </button>
       </template>
       <button
-        v-if="isMaximized"
+        v-if="isMaximized || isFullScreen"
         class="hover:bg-yellow-4c cursor-pointer p-1 size-7.5 flex items-center justify-center"
         @click="setFullScreen(!isFullScreen)"
       >
