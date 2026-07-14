@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ButtonType } from "~/enums/button-type";
+import { ButtonTypeEnum } from "~/enums/button-type-enum";
 
 const { isOpan, type, content, closeModal } = useModal();
 </script>
@@ -71,7 +71,7 @@ const { isOpan, type, content, closeModal } = useModal();
       </div>
       <div class="flex gap-4 justify-end">
         <BitButtonMainText
-          :type="ButtonType.Button"
+          :type="ButtonTypeEnum.Button"
           @click="closeModal()"
         >
           <div class="px-4">OK</div>

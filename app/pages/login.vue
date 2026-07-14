@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
-import { ButtonType } from "~/enums/button-type";
+import { ButtonTypeEnum } from "~/enums/button-type-enum";
 
 definePageMeta({
   layout: "login",
@@ -79,13 +79,13 @@ onMounted(async () => {
       </label>
       <div class="flex gap-4 justify-end">
         <BitButtonText
-          :type="ButtonType.Submit"
+          :type="ButtonTypeEnum.Submit"
           :is-disabled="lowercaseName.length < 4 || lowercasePassword.length < 4"
         >
           Dowam etmek
         </BitButtonText>
         <BitButtonText
-          :type="ButtonType.Button"
+          :type="ButtonTypeEnum.Button"
           @click="handleCloseWindow()"
         >
           Yapmak
