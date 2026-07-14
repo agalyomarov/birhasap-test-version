@@ -1,4 +1,98 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { createProductTableRowDto } from "~/dto/ProductTableRowDto";
+import { createTableColumnDto } from "~/dto/TableColumnDto";
+import { createTableDataDto } from "~/dto/TableDataDto";
+import { TableOrder } from "~/enums/table-sort-type";
+
+const selectedId = ref<number | null>(null);
+const productTableColumns = ref([
+  createTableColumnDto({
+    key: "id",
+    title: "ID",
+    sort: null,
+    canSort: true,
+  }),
+  createTableColumnDto({
+    key: "name",
+    title: "Harydyn ady",
+    sort: null,
+    canSort: true,
+  }),
+  createTableColumnDto({
+    key: "price",
+    title: "Harydyn bahasy",
+    sort: null,
+    canSort: true,
+  }),
+  createTableColumnDto({
+    key: "amount",
+    title: "Mukdary",
+    sort: null,
+    canSort: true,
+  }),
+  createTableColumnDto({
+    key: "dimension",
+    title: "Olceg birligi",
+    sort: null,
+    canSort: false,
+  }),
+]);
+
+const productTableRows = ref(
+  Array.from({ length: 1000 }).map((v, index) => {
+    return createProductTableRowDto({
+      id: index + 1000,
+      name: `Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady  Test haryt ${index + 1} ady `,
+      price: (index + 1) * 1000.0,
+      amount: (index + 1) * 100.0,
+      dimension: "sany",
+    });
+  }),
+);
+
+const productTableData = ref(
+  createTableDataDto({
+    columns: productTableColumns.value,
+    rows: productTableRows.value,
+  }),
+);
+
+const handleSelectId = (id: number) => {
+  selectedId.value = id;
+};
+
+const handleSort = (param: { column: string; order: TableOrder | null }) => {
+  productTableColumns.value = productTableColumns.value.map((column) => {
+    if (column.key == param.column) {
+      column.sort = param.order;
+    } else {
+      column.sort = null;
+    }
+    return column;
+  });
+
+  productTableRows.value = productTableRows.value.sort((a, b) => {
+    const order = param.order ?? TableOrder.Asc;
+    const column = (param.order === null ? "id" : param.column) as Exclude<keyof typeof a, "__type">;
+    const aValue = a[column];
+    const bValue = b[column];
+    if (aValue === bValue) return 0;
+    const result = aValue > bValue ? 1 : -1;
+    return order === TableOrder.Asc ? result : -result;
+  });
+};
+
+watch(
+  [productTableColumns, productTableRows],
+  () => {
+    productTableData.value = createTableDataDto({
+      columns: productTableColumns.value,
+      rows: productTableRows.value,
+    });
+  },
+  { deep: true },
+);
+</script>
 <template>
   <div class="wrapper flex flex-col">
     <ByteFormPanel />
@@ -44,7 +138,7 @@
             </div>
             <span>Goshmak</span>
           </BitButtonIconText>
-          <BitButtonIcon :is-disabled="true">
+          <BitButtonIcon :is-disabled="selectedId == null">
             <svg
               width="16"
               height="16"
@@ -80,7 +174,7 @@
               </defs>
             </svg>
           </BitButtonIcon>
-          <BitButtonIcon :is-disabled="true">
+          <BitButtonIcon :is-disabled="selectedId == null">
             <svg
               width="16"
               height="16"
@@ -125,7 +219,12 @@
         </li>
       </ul>
     </section>
-    <ByteTable class="flex-1" />
+    <ByteTable
+      class="flex-1"
+      :data="productTableData"
+      @selected="handleSelectId"
+      @sorted="handleSort"
+    />
   </div>
 </template>
 
