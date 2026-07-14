@@ -3,8 +3,10 @@ import { createProductTableRowDto, type ProductTableRowDto } from "~/dto/Product
 import { createTableColumnDto } from "~/dto/TableColumnDto";
 import { createTableDataDto } from "~/dto/TableDataDto";
 import type { TableOrderDto } from "~/dto/TableOrderDto";
+import { ModalTypeEnum } from "~/enums/modal-type-enum";
 import { TableColumnOrderEnum } from "~/enums/table-column-order-enum";
 
+const { openModal } = useModal();
 const page = ref(1);
 const order = ref<TableOrderDto | null>(null);
 const selectedId = ref<number | null>(null);
@@ -58,7 +60,7 @@ const fetchProductData = () => {
   });
 };
 
-const handleSelectId = (id: number) => {
+const handleSelectId = (id: number | null) => {
   selectedId.value = id;
 };
 
@@ -79,6 +81,29 @@ const loadNextPage = () => {
   if (page.value < 10) {
     page.value += 1;
   }
+};
+
+const handleDeleteRow = () => {
+  if (selectedId.value !== null) {
+    openModal({
+      modalContent: "Harydy yok etmegi dowam etmelimi?",
+      modalType: ModalTypeEnum.Confirm,
+      modalTitle: "Hereketi tassyklamak",
+      onConfirm: () => {
+        if (selectedId.value) {
+          deleteProduct(selectedId.value);
+        }
+      },
+      onCancel: () => {
+        console.log("Отмена удаления");
+      },
+    });
+  }
+};
+
+const deleteProduct = (id: number) => {
+  console.log(`DELETE:${id}`);
+  selectedId.value = null;
 };
 
 watch([page], () => {
@@ -181,7 +206,10 @@ onMounted(() => {
               </defs>
             </svg>
           </BitButtonIcon>
-          <BitButtonIcon :is-disabled="selectedId == null">
+          <BitButtonIcon
+            :is-disabled="selectedId == null"
+            @click="handleDeleteRow()"
+          >
             <svg
               width="16"
               height="16"
@@ -230,10 +258,12 @@ onMounted(() => {
       class="flex-1"
       :data="productTableData"
       :order="order"
+      :selected-id="selectedId"
       @selected="handleSelectId"
       @sorted="handleSort"
       @loadMore="loadNextPage"
     />
+    <ByteModalConfirm />
   </div>
 </template>
 

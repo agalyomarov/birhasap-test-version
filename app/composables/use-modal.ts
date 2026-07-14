@@ -1,29 +1,59 @@
+import { ModalTypeEnum } from "~/enums/modal-type-enum";
+
 export const useModal = () => {
-  type ModalType = "warning" | "danger";
-  const isOpan = useState("modal-open", () => false);
+  type OpenModalParams = {
+    modalTitle: null | string;
+    modalContent: string;
+    modalType: ModalTypeEnum;
+    onConfirm?: () => void;
+    onCancel?: () => void;
+  };
+
+  const isOpen = useState("modal-open", () => false);
   const title = useState<string | null>("modal-title", () => "");
   const content = useState("modal-content", () => "");
-  const type = useState<ModalType>("modal-type", () => "warning");
+  const type = useState<ModalTypeEnum>("modal-type", () => ModalTypeEnum.Warning);
 
-  const openModal = ({ modalTitle, modalContent, modalType }: { modalTitle: null | string; modalContent: string; modalType: ModalType }) => {
+  const confirmCallback = useState<(() => void) | null>("modal-confirm", () => null);
+  const cancelCallback = useState<(() => void) | null>("modal-cancel", () => null);
+
+  const openModal = ({ modalTitle, modalContent, modalType, onConfirm, onCancel }: OpenModalParams) => {
     title.value = modalTitle;
     content.value = modalContent;
-    isOpan.value = true;
+    isOpen.value = true;
     type.value = modalType;
+
+    confirmCallback.value = onConfirm ?? null;
+    cancelCallback.value = onCancel ?? null;
   };
 
   const closeModal = () => {
-    isOpan.value = false;
+    isOpen.value = false;
     title.value = "";
     content.value = "";
+
+    confirmCallback.value = null;
+    cancelCallback.value = null;
+  };
+
+  const confirm = () => {
+    confirmCallback.value?.();
+    closeModal();
+  };
+
+  const cancel = () => {
+    cancelCallback.value?.();
+    closeModal();
   };
 
   return {
-    isOpan,
+    isOpen,
     title,
     content,
     type,
     openModal,
     closeModal,
+    confirm,
+    cancel,
   };
 };

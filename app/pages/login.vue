@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
+import { ModalTypeEnum } from "~/enums/modal-type-enum";
 
 definePageMeta({
   layout: "login",
@@ -42,7 +43,7 @@ const handleSubmit = async () => {
     await navigateTo("/", { replace: true });
     console.log("form");
   } else {
-    openModal({ modalContent: "Ulanyjy ya-da pinkod yalnysh doldurlan", modalType: "warning", modalTitle: null });
+    openModal({ modalContent: "Ulanyjy ya-da pinkod yalnysh doldurlan", modalType: ModalTypeEnum.Warning, modalTitle: null });
   }
 };
 

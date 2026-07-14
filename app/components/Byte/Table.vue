@@ -6,9 +6,12 @@ import type { TableRowBaseDto } from "~/dto/TableRowBaseDto";
 import { TableColumnOrderEnum } from "~/enums/table-column-order-enum";
 
 const tableContainer = ref<HTMLElement | null>(null);
-const props = defineProps<{ data: TableDataDto<TRow>; order: TableOrderDto | null }>();
+const props = defineProps<{
+  data: TableDataDto<TRow>;
+  order: TableOrderDto | null;
+  selectedId: number | null;
+}>();
 const emit = defineEmits(["selected", "sorted", "loadMore"]);
-const selectedId = ref<number | null>(null);
 
 const handleScroll = () => {
   const el = tableContainer.value;
@@ -20,8 +23,11 @@ const handleScroll = () => {
 };
 
 const handleSelect = (id: number) => {
-  selectedId.value = id;
-  emit("selected", id);
+  if (props.selectedId == id) {
+    emit("selected", null);
+  } else {
+    emit("selected", id);
+  }
 };
 
 const handleSort = (column: TableColumnDto<TRow>) => {
@@ -65,7 +71,10 @@ const handleSort = (column: TableColumnDto<TRow>) => {
               <span class="text-nowrap"> {{ column.title }}</span>
               <div
                 v-if="column.canSort"
-                :class="[order?.key !== column.key ? ' opacity-0' : '', order?.order === TableColumnOrderEnum.Desc ? ' rotate-180' : '']"
+                :class="[
+                  order?.key !== column.key ? ' opacity-0' : '',
+                  order?.order === TableColumnOrderEnum.Desc ? ' rotate-180' : '',
+                ]"
               >
                 <svg
                   width="6"

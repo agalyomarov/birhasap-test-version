@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
+import { ModalTypeEnum } from "~/enums/modal-type-enum";
 
-const { isOpan, type, content, closeModal } = useModal();
+const { isOpen, type, content, closeModal } = useModal();
 </script>
 <template>
   <div
-    v-if="isOpan && type == 'warning'"
+    v-if="isOpen && type == ModalTypeEnum.Warning"
     class="fixed inset-0 flex items-center justify-center select-none"
   >
     <div class="p-4 w-fit max-w-85 z-10 bg-white border border-gray-a1 modal">
