@@ -101,6 +101,16 @@ const handleDeleteRow = () => {
   }
 };
 
+const handleEditRow = () => {
+  if (selectedId.value) {
+    navigateTo(AppRoutes.productEdit(selectedId.value));
+  }
+};
+
+const handleCreateRow = () => {
+  navigateTo(AppRoutes.productCreate());
+};
+
 const deleteProduct = (id: number) => {
   console.log(`DELETE:${id}`);
   selectedId.value = null;
@@ -131,7 +141,7 @@ onMounted(() => {
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">
-          <BitButtonIconText>
+          <BitButtonIconText @click="handleCreateRow()">
             <div>
               <svg
                 width="16"
@@ -170,7 +180,10 @@ onMounted(() => {
             </div>
             <span>Goshmak</span>
           </BitButtonIconText>
-          <BitButtonIcon :is-disabled="selectedId == null">
+          <BitButtonIcon
+            :is-disabled="selectedId == null"
+            @click="handleEditRow()"
+          >
             <svg
               width="16"
               height="16"
