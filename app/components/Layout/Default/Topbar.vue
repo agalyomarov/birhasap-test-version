@@ -28,7 +28,7 @@ const setWorkspaceSize = async () => {
 const setFullScreen = async (val: boolean) => {
   isFullScreen.value = val;
   try {
-    await appWindow.setFullscreen(val);
+    await appWindow.setSimpleFullscreen(val);
   } catch (error) {
     console.log(error);
   }
