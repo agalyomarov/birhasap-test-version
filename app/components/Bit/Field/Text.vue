@@ -1,9 +1,10 @@
 <script setup lang="ts">
-const model = defineModel<string | null>();
+const model = defineModel<string | null | number>();
 defineProps<{
   placeholder?: string;
-  type?: "text" | "password";
+  type?: "text" | "password" | "number";
   hasClear?: boolean;
+  isRequired?: boolean;
 }>();
 const emits = defineEmits(["clear"]);
 
@@ -22,12 +23,15 @@ defineExpose({
 
 <template>
   <div
-    class="flex items-center border border-gray-a1 rounded-xs focus-within:border-yellow-4c focus-within:rounded-none focus-within:shadow-[0_0_0_1px] shadow-yellow-4c"
+    class="flex h-7 items-center border border-gray-a1 rounded-xs focus-within:border-yellow-4c focus-within:rounded-none focus-within:shadow-[0_0_0_1px] shadow-yellow-4c"
   >
     <input
       ref="inputRef"
       v-model="model"
-      class="w-67.5 h-7 p-1.5"
+      class="flex-1 h-5 mx-1.5"
+      :class="[
+        isRequired && model?.toString().length === 0 ? 'border-b border-dotted border-red-30' : '',
+      ]"
       autocapitalize="off"
       autocomplete="off"
       autocorrect="off"

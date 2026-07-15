@@ -27,7 +27,7 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="wrapper overflow-y-auto">
-    <section class="command-panel flex justify-end items-center mb-15">
+    <section class="command-panel flex justify-end items-center">
       <BitFieldText
         ref="searchInputRef"
         placeholder="Gozleg (Ctrl+F) / (Cmd+F)"
@@ -36,7 +36,7 @@ onUnmounted(() => {
         :hasClear="true"
       />
     </section>
-    <section>
+    <section class="section">
       <ul class="flex gap-x-15 2xl:gap-x-10 gap-y-7.5 flex-wrap">
         <li
           v-for="value in 10"

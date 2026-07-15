@@ -24,7 +24,7 @@ const links = [
 </script>
 <template>
   <article>
-    <header class="text-h2 text-green-46 mb-3.75 select-none">Harytlar</header>
+    <header class="text-h2 text-green-46 mb-2 select-none">Harytlar</header>
     <ul class="">
       <li
         v-for="link in links"
@@ -42,7 +42,11 @@ const links = [
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               class="group-hover/parent:fill-yellow-4c"
-              :class="[link.is_favorited ? ' fill-yellow-4c' : ' fill-transparent group-hover/link:fill-gray-a0']"
+              :class="[
+                link.is_favorited
+                  ? ' fill-yellow-4c'
+                  : ' fill-transparent group-hover/link:fill-gray-a0',
+              ]"
             >
               <path
                 d="M8 1.5L9.9103 5.37069L14.1819 5.99139L11.0909 9.00431L11.8206 13.2586L8 11.25L4.1794 13.2586L4.90907 9.00431L1.81813 5.99139L6.0897 5.37069L8 1.5Z"

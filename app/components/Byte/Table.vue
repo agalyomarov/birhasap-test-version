@@ -53,7 +53,7 @@ const handleSort = (column: TableColumnDto<TRow>) => {
     class="overflow-auto min-w-0 border-[0px_1px_0px_1px] border-gray-f2"
     @scroll="handleScroll"
   >
-    <table class="w-full bg-white table">
+    <table class="w-full bg-white table relative">
       <thead class="">
         <tr class="">
           <th key="number">

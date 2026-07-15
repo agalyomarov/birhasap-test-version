@@ -43,7 +43,9 @@
           </defs>
         </svg>
       </li>
-      <li class="text-h1">Harytlar</li>
+      <li class="text-h1">
+        <slot />
+      </li>
     </ul>
   </section>
 </template>

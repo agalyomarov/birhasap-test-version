@@ -1,5 +1,6 @@
 export type ProductTableRowDto = {
   id: number;
+  barcode: number;
   name: string;
   price: number;
   amount: number;
@@ -7,7 +8,9 @@ export type ProductTableRowDto = {
   __type: "ProductTableRowDto";
 };
 
-export function createProductTableRowDto(dto: Omit<ProductTableRowDto, "__type">): ProductTableRowDto {
+export function createProductTableRowDto(
+  dto: Omit<ProductTableRowDto, "__type">,
+): ProductTableRowDto {
   return { ...dto, __type: "ProductTableRowDto" };
 }
 

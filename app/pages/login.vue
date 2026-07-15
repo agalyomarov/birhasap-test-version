@@ -4,7 +4,7 @@ import { ButtonTypeEnum } from "~/enums/button-type-enum";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
 
 definePageMeta({
-  layout: "login",
+  layout: "empty",
 });
 
 const { openModal } = useModal();
@@ -43,7 +43,11 @@ const handleSubmit = async () => {
     await navigateTo("/", { replace: true });
     console.log("form");
   } else {
-    openModal({ modalContent: "Ulanyjy ya-da pinkod yalnysh doldurlan", modalType: ModalTypeEnum.Warning, modalTitle: null });
+    openModal({
+      modalContent: "Ulanyjy ya-da pinkod yalnysh doldurlan",
+      modalType: ModalTypeEnum.Warning,
+      modalTitle: null,
+    });
   }
 };
 

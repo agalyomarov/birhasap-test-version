@@ -17,6 +17,11 @@ const productTableColumns = ref([
     canSort: true,
   }),
   createTableColumnDto({
+    key: "barcode",
+    title: "Strihkod",
+    canSort: true,
+  }),
+  createTableColumnDto({
     key: "name",
     title: "Harydyn ady",
     canSort: true,
@@ -52,6 +57,7 @@ const fetchProductData = () => {
   productTableRows.value = Array.from({ length: page.value * 100 }).map((v, index) => {
     return createProductTableRowDto({
       id: index + 1,
+      barcode: 1000000 + index + 1,
       name: `Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady  Test haryt ${index + 1} ady `,
       price: (index + 1) * 1000.0,
       amount: (index + 1) * 100.0,
@@ -137,7 +143,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="wrapper flex flex-col">
-    <ByteFormPanel />
+    <ByteFormPanel>Harytlar</ByteFormPanel>
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">
@@ -263,19 +269,22 @@ onMounted(() => {
           <BitFieldText
             :has-clear="true"
             placeholder="Gozleg (Ctrl+F) / (Cmd+F)"
+            class="w-100"
           />
         </li>
       </ul>
     </section>
-    <ByteTable
-      class="flex-1"
-      :data="productTableData"
-      :order="order"
-      :selected-id="selectedId"
-      @selected="handleSelectId"
-      @sorted="handleSort"
-      @loadMore="loadNextPage"
-    />
+    <section class="flex-1 section">
+      <ByteTable
+        class="h-full"
+        :data="productTableData"
+        :order="order"
+        :selected-id="selectedId"
+        @selected="handleSelectId"
+        @sorted="handleSort"
+        @loadMore="loadNextPage"
+      />
+    </section>
     <ByteModalConfirm />
   </div>
 </template>
