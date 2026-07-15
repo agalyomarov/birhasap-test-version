@@ -113,3 +113,12 @@ input {
 .ui-main-button-bg:active {
   background-color: linear-gradient(180deg, #cdb62c 4.17%, #ecd447 10.42%);
 }
+.table-container {
+  @apply overflow-auto min-w-0 border-[0px_1px_0px_1px] border-gray-f2;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  background-color: white;
+}

@@ -6,7 +6,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   telemetry: false,
-  css: ["./app/assets/css/main.css", "./app/assets/css/font-roboto.css", "./app/assets/css/scrollbar.css"],
+  modules: ["@pinia/nuxt"],
+  css: [
+    "./app/assets/css/main.css",
+    "./app/assets/css/font-roboto.css",
+    "./app/assets/css/scrollbar.css",
+  ],
   app: {
     head: {
       script: [
@@ -33,7 +38,12 @@ export default defineNuxtConfig({
       },
     },
     optimizeDeps: {
-      include: ["@tauri-apps/api/core", "@tauri-apps/api/window", "@vue/devtools-core", "@vue/devtools-kit"],
+      include: [
+        "@tauri-apps/api/core",
+        "@tauri-apps/api/window",
+        "@vue/devtools-core",
+        "@vue/devtools-kit",
+      ],
     },
   },
   // Avoids error [unhandledRejection] EMFILE: too many open files, watch

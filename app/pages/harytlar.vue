@@ -1,145 +1,40 @@
 <script setup lang="ts">
-import { createProductTableRowDto, type ProductTableRowDto } from "~/dto/ProductTableRowDto";
-import { createTableColumnDto } from "~/dto/TableColumnDto";
-import { createTableDataDto } from "~/dto/TableDataDto";
-import type { TableOrderDto } from "~/dto/TableOrderDto";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
-import { TableColumnOrderEnum } from "~/enums/table-column-order-enum";
 
+const productsStore = useProductStore();
+const { productsPageTableSelectedId } = storeToRefs(productsStore);
 const { openModal } = useModal();
-const page = ref(1);
-const order = ref<TableOrderDto | null>(null);
-const selectedId = ref<number | null>(null);
-const productTableColumns = ref([
-  createTableColumnDto({
-    key: "id",
-    title: "ID",
-    canSort: true,
-  }),
-  createTableColumnDto({
-    key: "barcode",
-    title: "Strihkod",
-    canSort: true,
-  }),
-  createTableColumnDto({
-    key: "name",
-    title: "Harydyn ady",
-    canSort: true,
-  }),
-  createTableColumnDto({
-    key: "price",
-    title: "Harydyn bahasy",
-    canSort: true,
-  }),
-  createTableColumnDto({
-    key: "amount",
-    title: "Mukdary",
-    canSort: true,
-  }),
-  createTableColumnDto({
-    key: "dimension",
-    title: "Olceg birligi",
-    canSort: false,
-  }),
-]);
-
-const productTableRows = ref<ProductTableRowDto[]>([]);
-
-const productTableData = ref(
-  createTableDataDto({
-    columns: productTableColumns.value,
-    rows: productTableRows.value,
-  }),
-);
-
-const fetchProductData = () => {
-  order.value = null;
-  productTableRows.value = Array.from({ length: page.value * 100 }).map((v, index) => {
-    return createProductTableRowDto({
-      id: index + 1,
-      barcode: 1000000 + index + 1,
-      name: `Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady  Test haryt ${index + 1} ady `,
-      price: (index + 1) * 1000.0,
-      amount: (index + 1) * 100.0,
-      dimension: "sany",
-    });
-  });
-};
-
-const handleSelectId = (id: number | null) => {
-  selectedId.value = id;
-};
-
-const handleSort = (newOrder: TableOrderDto | null) => {
-  order.value = newOrder;
-  productTableRows.value = productTableRows.value.sort((a, b) => {
-    const order = newOrder?.order ?? TableColumnOrderEnum.Asc;
-    const column = (newOrder === null ? "id" : newOrder.key) as Exclude<keyof typeof a, "__type">;
-    const aValue = a[column];
-    const bValue = b[column];
-    if (aValue === bValue) return 0;
-    const result = aValue > bValue ? 1 : -1;
-    return order === TableColumnOrderEnum.Asc ? result : -result;
-  });
-};
-
-const loadNextPage = () => {
-  if (page.value < 10) {
-    page.value += 1;
-  }
-};
 
 const handleDeleteRow = () => {
-  if (selectedId.value !== null) {
-    openModal({
-      modalContent: "Harydy yok etmegi dowam etmelimi?",
-      modalType: ModalTypeEnum.Confirm,
-      modalTitle: "Hereketi tassyklamak",
-      onConfirm: () => {
-        if (selectedId.value) {
-          deleteProduct(selectedId.value);
-        }
-      },
-      onCancel: () => {
-        console.log("Отмена удаления");
-      },
-    });
+  if (productsPageTableSelectedId.value === null) {
+    return;
   }
-};
-
-const handleEditRow = () => {
-  if (selectedId.value) {
-    navigateTo(AppRoutes.productEdit(selectedId.value));
-  }
-};
-
-const handleCreateRow = () => {
-  navigateTo(AppRoutes.productCreate());
+  openModal({
+    modalContent: "Harydy yok etmegi dowam etmelimi?",
+    modalType: ModalTypeEnum.Confirm,
+    modalTitle: "Hereketi tassyklamak",
+    onConfirm: () => {
+      if (productsPageTableSelectedId.value) {
+        deleteProduct(productsPageTableSelectedId.value);
+      }
+    },
+    onCancel: () => {
+      console.log("Отмена удаления");
+    },
+  });
 };
 
 const deleteProduct = (id: number) => {
   console.log(`DELETE:${id}`);
-  selectedId.value = null;
+  productsStore.$patch({ productsPageTableSelectedId: null });
 };
 
-watch([page], () => {
-  fetchProductData();
-});
-
-watch(
-  [productTableColumns, productTableRows],
-  () => {
-    productTableData.value = createTableDataDto({
-      columns: productTableColumns.value,
-      rows: productTableRows.value,
-    });
-  },
-  { deep: true },
-);
-
-onMounted(() => {
-  fetchProductData();
-});
+const handleEditRow = () => {
+  if (productsPageTableSelectedId.value === null) {
+    return;
+  }
+  navigateTo(AppRoutes.productEdit(productsPageTableSelectedId.value));
+};
 </script>
 <template>
   <div class="wrapper flex flex-col">
@@ -147,7 +42,7 @@ onMounted(() => {
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">
-          <BitButtonIconText @click="handleCreateRow()">
+          <BitButtonIconText @click="navigateTo(AppRoutes.productCreate())">
             <div>
               <svg
                 width="16"
@@ -187,7 +82,7 @@ onMounted(() => {
             <span>Goshmak</span>
           </BitButtonIconText>
           <BitButtonIcon
-            :is-disabled="selectedId == null"
+            :is-disabled="productsPageTableSelectedId == null"
             @click="handleEditRow()"
           >
             <svg
@@ -226,7 +121,7 @@ onMounted(() => {
             </svg>
           </BitButtonIcon>
           <BitButtonIcon
-            :is-disabled="selectedId == null"
+            :is-disabled="productsPageTableSelectedId == null"
             @click="handleDeleteRow()"
           >
             <svg
@@ -274,17 +169,7 @@ onMounted(() => {
         </li>
       </ul>
     </section>
-    <section class="flex-1 section">
-      <ByteTable
-        class="h-full"
-        :data="productTableData"
-        :order="order"
-        :selected-id="selectedId"
-        @selected="handleSelectId"
-        @sorted="handleSort"
-        @loadMore="loadNextPage"
-      />
-    </section>
+    <PageHarytlarTable />
     <ByteModalConfirm />
   </div>
 </template>
