@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { createRouteHistoryDto } from "~/dto/RouteHistoryDto";
+
+const pageTitle = "Haryt goshmak";
+const routeHistoryStore = useRouteHistory();
 const formData = reactive({
   barcode: "",
   name: "",
@@ -11,10 +15,21 @@ const handleStoreProduct = () => {
   console.log(formData);
   navigateTo(AppRoutes.harytlar());
 };
+
+onMounted(() => {
+  const routeHistory = createRouteHistoryDto({
+    id: AppRoutes.productCreate(),
+    title: pageTitle,
+    href: AppRoutes.productCreate(),
+    canClose: true,
+  });
+  routeHistoryStore.addHistory(routeHistory);
+  routeHistoryStore.$patch({ activeId: routeHistory.id });
+});
 </script>
 <template>
   <div class="wrapper flex flex-col">
-    <ByteFormPanel>Haryt gosmak</ByteFormPanel>
+    <ByteFormPanel>{{ pageTitle }}</ByteFormPanel>
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">

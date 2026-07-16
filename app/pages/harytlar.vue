@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { createRouteHistoryDto, type RouteHistoryDto } from "~/dto/RouteHistoryDto";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
 
 const productsStore = useProductStore();
+const routeHistoryStore = useRouteHistory();
 const { productsPageTableSelectedId } = storeToRefs(productsStore);
 const { openModal } = useModal();
 
@@ -35,6 +37,17 @@ const handleEditRow = () => {
   }
   navigateTo(AppRoutes.productEdit(productsPageTableSelectedId.value));
 };
+
+onMounted(() => {
+  const routeHistory = createRouteHistoryDto({
+    id: AppRoutes.harytlar(),
+    title: "Harytlar",
+    href: AppRoutes.harytlar(),
+    canClose: true,
+  });
+  routeHistoryStore.addHistory(routeHistory);
+  routeHistoryStore.$patch({ activeId: routeHistory.id });
+});
 </script>
 <template>
   <div class="wrapper flex flex-col">

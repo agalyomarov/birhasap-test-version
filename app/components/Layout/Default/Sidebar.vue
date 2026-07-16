@@ -11,18 +11,20 @@ const list = Array.from({ length: 5 }).map((item, index) => {
     href: "#",
   };
 });
+
+const activeIndex = ref(0);
 </script>
 <template>
-  <aside class="overflow-hidden h-full flex flex-col border-r border-gray-a1 select-none">
-    <ul class="bg-yellow-a7 border-b border-gray-a1">
-      <li
-        v-for="(value, index) in list"
-        class="py-2.5 pl-4"
-        :class="[index == 0 ? ' bg-white' : '']"
-      >
+  <aside
+    class="overflow-hidden h-full flex flex-col border-r border-gray-a1 select-none bg-yellow-a7"
+  >
+    <ul class="">
+      <li v-for="(value, index) in list">
         <NuxtLink
-          class="flex items-center gap-3.5"
           :to="value.href"
+          class="flex items-center gap-3.5 pl-4 py-2.5"
+          :class="[index == activeIndex ? ' bg-white' : '']"
+          @click="activeIndex = index"
         >
           <div>
             <svg
@@ -62,19 +64,6 @@ const list = Array.from({ length: 5 }).map((item, index) => {
           </div>
           <span class="text-nowrap text-ellipsis overflow-hidden">{{ value.title }}</span>
         </NuxtLink>
-      </li>
-    </ul>
-    <ul class="bg-gray-f2 flex-1 overflow-y-auto ui-small-scrollbar">
-      <li
-        v-for="(value, index) in list"
-        class="flex items-center gap-1.25 border-b border-gray-a1"
-        :class="[index == 0 ? ' bg-white' : '']"
-      >
-        <div
-          class="w-0.5 my-0.75 ml-1 bg-green-3b h-6.75"
-          :class="[index != 0 ? ' opacity-0' : '']"
-        ></div>
-        <span class="text-nowrap text-ellipsis overflow-hidden">Заголовок формы</span>
       </li>
     </ul>
   </aside>

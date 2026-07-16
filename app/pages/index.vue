@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import BitFieldText from "~/components/Bit/Field/Text.vue";
+
+const routeHistoryStore = useRouteHistory();
 const searchValueRef = ref<string | null>(null);
 const handleClearSearch = () => {
   searchValueRef.value = null;
@@ -19,6 +21,7 @@ const handleKeyDown = (event: KeyboardEvent): void => {
 
 onMounted(() => {
   window.addEventListener("keydown", handleKeyDown);
+  routeHistoryStore.$patch({ activeId: AppRoutes.home() });
 });
 
 onUnmounted(() => {
