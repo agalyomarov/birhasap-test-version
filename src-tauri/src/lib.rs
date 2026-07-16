@@ -7,10 +7,8 @@ use commands::{add_todo, delete_todo, get_todos, update_todo};
 use sqlx::Sqlite;
 use tauri::Manager;
 
-type Db = sqlx::Pool<Sqlite>;
-
 struct AppState {
-    db: Db,
+    db: sqlx::Pool<Sqlite>,
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -34,7 +32,7 @@ pub fn run() {
             }
 
             tauri::async_runtime::block_on(async move {
-                let db = bootstrap::setup_db(&app).await;
+                let db = bootstrap::db::setup(&app).await;
                 app.manage(AppState { db });
             });
             Ok(())

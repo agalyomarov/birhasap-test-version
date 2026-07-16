@@ -1,9 +1,7 @@
 use sqlx::{migrate::MigrateDatabase, sqlite::SqlitePoolOptions, Sqlite};
 use tauri::Manager;
 
-use crate::Db;
-
-pub async fn setup_db(app: &tauri::App) -> Db {
+pub async fn setup(app: &tauri::App) -> sqlx::Pool<Sqlite> {
     let mut path = app
         .path()
         .app_local_data_dir()
