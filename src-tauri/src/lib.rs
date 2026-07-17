@@ -32,7 +32,7 @@ pub fn run() {
             }
 
             tauri::async_runtime::block_on(async move {
-                let db = bootstrap::db::setup(&app).await;
+                let db = bootstrap::database::setup(&app).await;
                 app.manage(AppState { db });
             });
             Ok(())

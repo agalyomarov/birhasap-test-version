@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { createRouteHistoryDto } from "~/dto/RouteHistoryDto";
+import { createRouteHistoryDto, type RouteHistoryDto } from "~/dto/RouteHistoryDto";
 
+const routeHistory = ref<RouteHistoryDto | null>(null);
 const pageTitle = "Satuwy uytgetmek";
 const routeHistoryStore = useRouteHistory();
 const formData = reactive({
@@ -18,14 +19,18 @@ const handleStoreSale = () => {
 };
 
 onMounted(() => {
-  const routeHistory = createRouteHistoryDto({
+  routeHistory.value = createRouteHistoryDto({
     id: AppRoutes.saleCreate(),
     title: pageTitle,
     href: AppRoutes.saleCreate(),
     canClose: true,
   });
-  routeHistoryStore.addHistory(routeHistory);
-  routeHistoryStore.$patch({ activeId: routeHistory.id });
+  routeHistoryStore.addHistory(routeHistory.value);
+  routeHistoryStore.$patch({ activeId: routeHistory.value.id });
+});
+
+onUnmounted(() => {
+  routeHistoryStore.deleteHistory(routeHistory.value!.id);
 });
 </script>
 <template>

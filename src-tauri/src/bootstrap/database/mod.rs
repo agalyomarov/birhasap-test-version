@@ -1,3 +1,5 @@
+pub mod seeds;
+
 use sqlx::{migrate::MigrateDatabase, sqlite::SqlitePoolOptions, Sqlite};
 use tauri::Manager;
 
@@ -31,7 +33,11 @@ pub async fn setup(app: &tauri::App) -> sqlx::Pool<Sqlite> {
         .await
         .unwrap();
 
-    sqlx::migrate!("./migrations").run(&db).await.unwrap();
+    sqlx::migrate!("./database/migrations")
+        .run(&db)
+        .await
+        .unwrap();
 
+    seeds::run(&db).await;
     db
 }
