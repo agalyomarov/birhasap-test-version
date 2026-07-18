@@ -92,7 +92,7 @@ onMounted(() => {
                 </defs>
               </svg>
             </div>
-            <span>Goshmak</span>
+            <span>Goşmak</span>
           </BitButtonIconText>
           <BitButtonIcon
             :is-disabled="productsPageTableSelectedId == null"

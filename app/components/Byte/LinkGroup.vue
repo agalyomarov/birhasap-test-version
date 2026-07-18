@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const links = [
   {
-    title: "Ahli harytlar",
+    title: "Ähli harytlar",
     is_favorited: true,
     href: AppRoutes.harytlar(),
   },
@@ -11,12 +11,12 @@ const links = [
     href: AppRoutes.satuwlar(),
   },
   {
-    title: "Beyleki bolumler 2",
+    title: "Beýleki bölümler 2",
     is_favorited: false,
     href: "#",
   },
   {
-    title: "Beyleki bolumler 3",
+    title: "Beýleki bölümler 3",
     is_favorited: false,
     href: "#",
   },

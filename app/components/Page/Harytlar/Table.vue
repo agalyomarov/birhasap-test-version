@@ -18,7 +18,7 @@ const tableColumns = ref([
   }),
   createTableColumnDto({
     key: "barcode",
-    title: "Strihkod",
+    title: "Ştrihkod",
     canSort: true,
     isHidden: false,
   }),

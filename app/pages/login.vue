@@ -93,7 +93,7 @@ onMounted(async () => {
           :type="ButtonTypeEnum.Button"
           @click="handleCloseWindow()"
         >
-          Yapmak
+          Ýapmak
         </BitButtonText>
       </div>
     </form>
