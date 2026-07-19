@@ -71,7 +71,6 @@ impl BackendManager {
 
         let child = Command::new(&backend_path)
             .env("APP_DATA_DIR", &data_dir)
-            .env("APP_ENV", "production")
             .env("APP_PORT", port.to_string())
             .spawn()?;
 

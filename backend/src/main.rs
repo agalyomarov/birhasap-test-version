@@ -25,8 +25,7 @@ fn routes() -> Router {
 }
 
 async fn index() -> impl IntoResponse {
-    // let data_dir = std::env::var("APP_DATA_DIR");
+    let data_dir = std::env::var("APP_DATA_DIR").unwrap_or("APP_DATA_DIR NOT FOUND".to_string());
 
-    // println!("{:?}", data_dir);
-    (StatusCode::OK, "Hello world".to_string())
+    (StatusCode::OK, data_dir.to_owned())
 }

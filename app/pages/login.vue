@@ -62,16 +62,18 @@ const handleSubmit = async () => {
   }
 };
 
+let port = ref<string | number>("error");
 onMounted(async () => {
   await appWindow.setAlwaysOnTop(true);
   await appWindow.setResizable(false);
   await appWindow.setSize(new LogicalSize(370, 222));
 
   try {
-    const port = await invoke<number>("backend_port");
+    port.value = await invoke<number>("backend_port");
     console.log(port);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
+    port.value = err;
   }
 });
 </script>
@@ -80,7 +82,7 @@ onMounted(async () => {
     v-if="!hideContent"
     class="p-4 select-none"
   >
-    <PageLoginTopbar>Birhasaba girmek</PageLoginTopbar>
+    <PageLoginTopbar>Birhasaba girmek {{ port }}</PageLoginTopbar>
     <form
       class="mt-7"
       @submit.prevent="handleSubmit()"
