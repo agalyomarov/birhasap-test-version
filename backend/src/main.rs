@@ -1,3 +1,6 @@
+// Предотвращает дополнительное окно консоли в выпуске Windows, НЕ УДАЛЯЙТЕ!!
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 use axum::{Router, http::StatusCode, response::IntoResponse, routing};
 
 #[tokio::main]
