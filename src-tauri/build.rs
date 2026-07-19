@@ -1,6 +1,11 @@
 use std::{fs, process::Command};
 
 fn main() {
+    build_backend();
+    tauri_build::build();
+}
+
+fn build_backend() {
     let status = Command::new("cargo")
         .args([
             "build",
@@ -30,6 +35,4 @@ fn main() {
 
     fs::create_dir_all("binaries").unwrap();
     fs::copy(src, dst).unwrap();
-
-    tauri_build::build();
 }

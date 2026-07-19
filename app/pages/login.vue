@@ -1,4 +1,15 @@
 <script setup lang="ts">
+// import { invoke } from "@tauri-apps/api/core";
+
+// await invoke("backend_start");
+
+// await invoke("backend_stop");
+
+// await invoke("backend_restart");
+
+// const running = await invoke<boolean>("backend_status");
+
+import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
@@ -55,6 +66,13 @@ onMounted(async () => {
   await appWindow.setAlwaysOnTop(true);
   await appWindow.setResizable(false);
   await appWindow.setSize(new LogicalSize(370, 222));
+
+  try {
+    const port = await invoke<number>("backend_port");
+    console.log(port);
+  } catch (err) {
+    console.error(err);
+  }
 });
 </script>
 <template>
