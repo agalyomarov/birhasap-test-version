@@ -6,6 +6,16 @@ fn main() {
 }
 
 fn build_backend() {
+    #[cfg(target_os = "windows")]
+    let backend_bin = "../backend/target/release/backend.exe";
+
+    #[cfg(not(target_os = "windows"))]
+    let backend_bin = "../backend/target/release/backend";
+
+    if std::path::Path::new(backend_bin).exists() {
+        fs::remove_file(backend_bin).expect("Failed to remove old backend binary");
+    }
+
     let status = Command::new("cargo")
         .args([
             "build",

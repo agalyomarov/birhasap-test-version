@@ -2,7 +2,7 @@ mod bootstrap;
 mod commands;
 
 use bootstrap::backend::BackendManager;
-use tauri::Manager;
+use tauri::{Manager, RunEvent};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -33,6 +33,17 @@ pub fn run() {
 
             Ok(())
         })
-        .run(tauri::generate_context!())
+        .build(tauri::generate_context!())
         .expect("error while running tauri application")
+        .run(|app_handle, event| match event {
+            RunEvent::ExitRequested { .. } | RunEvent::Exit => {
+                let backend = app_handle.state::<BackendManager>();
+
+                if let Err(e) = backend.stop() {
+                    eprintln!("Backend stop error: {}", e);
+                }
+            }
+
+            _ => {}
+        })
 }

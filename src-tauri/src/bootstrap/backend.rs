@@ -86,14 +86,16 @@ impl BackendManager {
 
     pub fn stop(&self) -> Result<(), Box<dyn std::error::Error>> {
         let mut state = self.state.lock().unwrap();
-
         if let Some(mut child) = state.child.take() {
-            if child.try_wait()?.is_none() {
-                let _ = child.kill();
-                let _ = child.wait();
+            match child.try_wait()? {
+                Some(_) => {}
+
+                None => {
+                    child.kill()?;
+                    child.wait()?;
+                }
             }
         }
-
         state.port = None;
         state.data_dir = None;
 
@@ -137,16 +139,5 @@ impl BackendManager {
 
     pub fn data_dir(&self) -> Option<PathBuf> {
         self.state.lock().unwrap().data_dir.clone()
-    }
-}
-
-impl Drop for BackendManager {
-    fn drop(&mut self) {
-        let state = self.state.get_mut().unwrap();
-
-        if let Some(mut child) = state.child.take() {
-            let _ = child.kill();
-            let _ = child.wait();
-        }
     }
 }
