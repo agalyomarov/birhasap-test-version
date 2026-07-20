@@ -70,6 +70,7 @@ impl BackendManager {
         println!("Port     : {}", port);
 
         let child = Command::new(&backend_path)
+            .arg("serve")
             .env("APP_DATA_DIR", &data_dir)
             .env("APP_PORT", port.to_string())
             .spawn()?;
