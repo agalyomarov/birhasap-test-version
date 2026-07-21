@@ -31,7 +31,10 @@ futures-util = "0.3.32"
 uuid = { version = "1.20.0", features = ["v7"] }
 tokio = "1.53.1"
 anyhow = "1.0.104"
-sea-orm = "2.0.0"
+sea-orm = { version = "2.0", features = [
+   "sqlx-sqlite",
+   "runtime-tokio-rustls",
+] }
 migration = { path = "./migration" }
 sea-orm-migration = "2.0.0"
 

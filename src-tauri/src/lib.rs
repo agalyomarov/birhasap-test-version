@@ -5,7 +5,6 @@ use crate::{database::init::init, state::app_state::AppState};
 mod database;
 mod entities;
 mod handlers;
-mod models;
 mod state;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

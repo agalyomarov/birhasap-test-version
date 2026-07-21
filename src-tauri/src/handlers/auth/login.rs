@@ -1,8 +1,14 @@
+use sea_orm::{EntityTrait, PaginatorTrait};
+use tauri::State;
+
+use crate::{entities::prelude::*, state::app_state::AppState};
+
 #[tauri::command]
-pub fn auth_login() -> Result<String, String> {
-    // sqlx::query("SELECT 1")
-    //     .execute(&state.db)
-    //     .await
-    //     .map_err(|e| e.to_string())?;
-    Ok("OK".to_string())
+pub async fn auth_login(state: State<'_, AppState>) -> Result<String, String> {
+    let count = UserEntity::find()
+        .count(&state.db)
+        .await
+        .map_err(|e| e.to_string())?;
+
+    Ok(format!("Users: {}", count))
 }
