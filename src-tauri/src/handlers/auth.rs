@@ -1,7 +1,7 @@
 use sea_orm::{EntityTrait, PaginatorTrait};
 use tauri::State;
 
-use crate::{entities::prelude::*, state::app_state::AppState};
+use crate::{entities::prelude::*, state::AppState};
 
 #[tauri::command]
 pub async fn auth_login(state: State<'_, AppState>) -> Result<String, String> {
