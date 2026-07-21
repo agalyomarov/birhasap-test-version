@@ -1,49 +1,38 @@
-mod bootstrap;
-mod commands;
+use tauri::Manager;
 
-use bootstrap::backend::BackendManager;
-use tauri::{Manager, RunEvent};
+use crate::{database::init::init, state::app_state::AppState};
+
+mod database;
+mod entities;
+mod handlers;
+mod models;
+mod state;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
-        .manage(BackendManager::new())
+        // .manage(BackendManager::new())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![
-            commands::backend::backend_start,
-            commands::backend::backend_stop,
-            commands::backend::backend_restart,
-            commands::backend::backend_status,
-            commands::backend::backend_port,
-            commands::backend::backend_data_dir,
-        ])
+        .invoke_handler(tauri::generate_handler![handlers::auth::login::auth_login,])
         .setup(|app: &mut tauri::App| {
+            let app_data_dir = app
+                .path()
+                .resolve("", tauri::path::BaseDirectory::AppLocalData)?;
+            let db_pool = tauri::async_runtime::block_on(init(app_data_dir))?;
+            let state = AppState { db: db_pool };
+            app.manage(state);
+
             if cfg!(debug_assertions) {
                 app.handle().plugin(
                     tauri_plugin_log::Builder::default()
                         .level(log::LevelFilter::Info)
                         .build(),
                 )?;
-            } else {
-                // Первый запуск backend
-                let backend = app.state::<BackendManager>();
-                backend.start(app.handle())?;
             }
 
             Ok(())
         })
-        .build(tauri::generate_context!())
-        .expect("error while running tauri application")
-        .run(|app_handle, event| match event {
-            RunEvent::ExitRequested { .. } | RunEvent::Exit => {
-                let backend = app_handle.state::<BackendManager>();
-
-                if let Err(e) = backend.stop() {
-                    eprintln!("Backend stop error: {}", e);
-                }
-            }
-
-            _ => {}
-        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }

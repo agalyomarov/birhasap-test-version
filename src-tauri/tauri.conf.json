@@ -44,6 +44,6 @@
     "android": {
       "debugApplicationIdSuffix": ".debug"
     },
-    "externalBin": ["binaries/backend"]
+    "externalBin": []
   }
 }
