@@ -1,1 +1,1 @@
-pub use super::auth::auth_login_action::auth_login_action;
+pub use super::auth::login::auth_login_path;

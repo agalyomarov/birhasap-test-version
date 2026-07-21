@@ -4,7 +4,7 @@ use tauri::State;
 use crate::{entities::prelude::*, state::AppState};
 
 #[tauri::command]
-pub async fn auth_login_action(state: State<'_, AppState>) -> Result<String, String> {
+pub async fn auth_login_path(state: State<'_, AppState>) -> Result<String, String> {
     let count = UserEntity::find()
         .count(&state.db)
         .await
