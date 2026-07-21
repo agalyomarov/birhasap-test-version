@@ -1,0 +1,3 @@
+sea-orm-cli generate entity \
+    -u "sqlite:///Users/agaly/Library/Application Support/BirHasap/database/db.sqlite" \
+    -o src/entities
