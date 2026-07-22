@@ -1,7 +1,6 @@
 pub use sea_orm_migration::prelude::*;
 
 mod m20260721_144410_create_users_table;
-
 pub struct Migrator;
 
 #[async_trait::async_trait]

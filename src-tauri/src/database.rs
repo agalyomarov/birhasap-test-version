@@ -1,15 +1,14 @@
-use crate::entities::prelude::*;
 use anyhow::Result;
 use migration::{Migrator, MigratorTrait};
-use sea_orm::EntityTrait;
 use sea_orm::{
-    ActiveModelTrait, ConnectOptions, Database, DatabaseConnection, PaginatorTrait, Set,
+    ActiveModelTrait, ConnectOptions, Database, DatabaseConnection, EntityTrait, PaginatorTrait,
+    Set,
 };
 use std::path::PathBuf;
 use tokio::fs;
 use uuid::Uuid;
 
-use crate::entities::user_entity::ActiveModel;
+use crate::entities::prelude::*;
 
 pub async fn init(app_data_path: PathBuf) -> Result<DatabaseConnection> {
     let app_data_path = app_data_path.join("database");
@@ -41,7 +40,7 @@ async fn user_seed(db: &DatabaseConnection) -> Result<()> {
         return Ok(());
     }
     for (login, password) in [("admin", "12345"), ("kassir", "12345")] {
-        ActiveModel {
+        UserSchema {
             uuid: Set(Uuid::now_v7().to_string()),
             login: Set(login.into()),
             password: Set(password.into()),

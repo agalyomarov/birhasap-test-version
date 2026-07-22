@@ -2,16 +2,17 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 use serde::Serialize;
 use tauri::State;
 
-use crate::{entities::prelude::*, responses::ApiErrorResponse, state::AppState};
+use crate::entities::users;
+use crate::{responses::ApiErrorResponse, state::AppState};
 
 #[tauri::command]
 pub async fn auth_login_command(
     state: State<'_, AppState>,
     params: AuthLoginCommandRequest,
 ) -> Result<AuthLoginCommandResponse, ApiErrorResponse> {
-    let user: Option<UserSchema::Model> = UserEntity::find()
-        .filter(UserSchema::Column::Login.eq(params.login))
-        .filter(UserSchema::Column::Password.eq(params.password))
+    let user: Option<users::Model> = users::Entity::find()
+        .filter(users::Column::Login.eq(params.login))
+        .filter(users::Column::Password.eq(params.password))
         .one(&state.db)
         .await
         .map_err(|_e| ApiErrorResponse::new("Ulanyjy ya-da pinkod nadogry", "AUTH_FAILED"))?;

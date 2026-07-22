@@ -1,5 +1,6 @@
 sea-orm-cli generate entity \
-    -u "sqlite:///Users/agaly/Library/Application Support/BirHasap/database/db.sqlite" \
-    -o src/entities
+    -u "sqlite:///Users/agaly/Library/Application Support/com.tauri.birhasap-test-version/database/db.sqlite" \
+    -o src/entities \
+    --with-prelude none
 
 cargo tauri-typegen generate
