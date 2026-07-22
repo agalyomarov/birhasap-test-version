@@ -1,4 +1,3 @@
-use migration::extension::mysql::IndexHintType::Use;
 use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 use serde::Serialize;
 use tauri::State;
@@ -27,7 +26,7 @@ pub async fn auth_login_command(
                 _ => todo!(),
             };
             let response = AuthLoginCommandResponse::new(user.uuid, role);
-            return Ok(response);
+            Ok(response)
         }
 
         None => Err(ApiErrorResponse::new(
@@ -47,7 +46,7 @@ impl AuthLoginCommandResponse {
     pub fn new(token: impl Into<String>, role: UserRole) -> Self {
         Self {
             token: token.into(),
-            role: role,
+            role,
         }
     }
 }

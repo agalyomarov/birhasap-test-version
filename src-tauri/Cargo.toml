@@ -37,7 +37,10 @@ sea-orm = { version = "2.0", features = [
    "runtime-tokio-rustls",
 ] }
 migration = { path = "./migration" }
-sea-orm-migration = "2.0.0"
+sea-orm-migration = { version = "2.0.0", features = [
+   "runtime-tokio-native-tls",
+   "sqlx-sqlite",
+] }
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-single-instance = "2"
