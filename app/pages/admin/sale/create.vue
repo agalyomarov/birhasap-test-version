@@ -1,26 +1,27 @@
 <script setup lang="ts">
 import { createRouteHistoryDto } from "~/dto/RouteHistoryDto";
 
-const pageTitle = "Haryt goshmak";
+const pageTitle = "Satuw goshmak";
 const routeHistoryStore = useRouteHistory();
 const formData = reactive({
   barcode: "",
   name: "",
   price: "",
   amount: "",
+  total_price: "",
   dimension: "",
 });
 
-const handleStoreProduct = () => {
+const handleStoreSale = () => {
   console.log(formData);
-  navigateTo(AppRoutes.harytlar());
+  navigateTo(AppRoutes.adminSatuwlar());
 };
 
 onMounted(() => {
   const routeHistory = createRouteHistoryDto({
-    id: AppRoutes.productCreate(),
+    id: AppRoutes.adminSaleCreate(),
     title: pageTitle,
-    href: AppRoutes.productCreate(),
+    href: AppRoutes.adminSaleCreate(),
     canClose: true,
   });
   routeHistoryStore.addHistory(routeHistory);
@@ -33,10 +34,10 @@ onMounted(() => {
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">
-          <BitButtonMainText @click="handleStoreProduct()">
+          <BitButtonMainText @click="handleStoreSale()">
             <span>Hasaba almak we yapmak</span>
           </BitButtonMainText>
-          <BitButtonText @click="navigateTo(AppRoutes.harytlar())">
+          <BitButtonText @click="navigateTo(AppRoutes.adminSatuwlar())">
             <span>Yapmak</span>
           </BitButtonText>
         </li>
@@ -73,6 +74,15 @@ onMounted(() => {
         <BitFieldTitle>Mukdary</BitFieldTitle>
         <BitFieldText
           v-model.number="formData.amount"
+          type="number"
+          class="w-120"
+          :is-required="true"
+        />
+      </label>
+      <label class="flex items-center justify-between">
+        <BitFieldTitle>Umumy Bahasy</BitFieldTitle>
+        <BitFieldText
+          v-model.number="formData.total_price"
           type="number"
           class="w-120"
           :is-required="true"

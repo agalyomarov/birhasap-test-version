@@ -1,39 +1,39 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "Birhasap test version",
-  "version": "0.1.0",
-  "identifier": "com.tauri.birhasap-test-version",
-  "build": {
-    "frontendDist": "../dist",
-    "devUrl": "http://localhost:3000",
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run generate"
-  },
   "app": {
-    "windows": [
-      {
-        "title": "main",
-        "width": 370,
-        "height": 222,
-        "minWidth": 370,
-        "minHeight": 222,
-        "resizable": false,
-        "fullscreen": false,
-        "decorations": false,
-        "url": "/login",
-        "alwaysOnTop": true,
-        "hiddenTitle": true,
-        "titleBarStyle": "Overlay",
-        "center": true
-      }
-    ],
     "security": {
       "csp": null
-    }
+    },
+    "windows": [
+      {
+        "alwaysOnTop": true,
+        "center": true,
+        "decorations": false,
+        "fullscreen": false,
+        "height": 222,
+        "hiddenTitle": true,
+        "minHeight": 222,
+        "minWidth": 370,
+        "resizable": false,
+        "title": "main",
+        "titleBarStyle": "Overlay",
+        "url": "/login",
+        "width": 370
+      }
+    ]
+  },
+  "build": {
+    "beforeBuildCommand": "npm run generate",
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:3000",
+    "frontendDist": "../dist"
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "android": {
+      "debugApplicationIdSuffix": ".debug"
+    },
+    "externalBin": [],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -41,9 +41,23 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "android": {
-      "debugApplicationIdSuffix": ".debug"
-    },
-    "externalBin": []
-  }
+    "targets": "all"
+  },
+  "identifier": "com.tauri.birhasap-test-version",
+  "plugins": {
+    "typegen": {
+      "excludePatterns": ["**/test/**", "**/internal/**"],
+      "force": true,
+      "includePatterns": ["commands/**", "entities/**"],
+      "includePrivate": false,
+      "outputPath": "./app/types/generated",
+      "projectPath": "./src-tauri",
+      "typeMappings": null,
+      "validationLibrary": "none",
+      "verbose": false,
+      "visualizeDeps": false
+    }
+  },
+  "productName": "Birhasap test version",
+  "version": "0.1.0"
 }

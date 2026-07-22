@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { createRouteHistoryDto } from "~/dto/RouteHistoryDto";
+import { createRouteHistoryDto, type RouteHistoryDto } from "~/dto/RouteHistoryDto";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
 
-const salesStore = useSalesStore();
+const productsStore = useProductStore();
 const routeHistoryStore = useRouteHistory();
-const { selectedId } = storeToRefs(salesStore);
+const { productsPageTableSelectedId } = storeToRefs(productsStore);
 const { openModal } = useModal();
 
 const handleDeleteRow = () => {
-  if (selectedId.value === null) {
+  if (productsPageTableSelectedId.value === null) {
     return;
   }
   openModal({
-    modalContent: "Satuwy yok etmegi dowam etmelimi?",
+    modalContent: "Harydy yok etmegi dowam etmelimi?",
     modalType: ModalTypeEnum.Confirm,
     modalTitle: "Hereketi tassyklamak",
     onConfirm: () => {
-      if (selectedId.value) {
-        deleteSale(selectedId.value);
+      if (productsPageTableSelectedId.value) {
+        deleteProduct(productsPageTableSelectedId.value);
       }
     },
     onCancel: () => {
@@ -26,23 +26,23 @@ const handleDeleteRow = () => {
   });
 };
 
-const deleteSale = (id: number) => {
+const deleteProduct = (id: number) => {
   console.log(`DELETE:${id}`);
-  salesStore.$patch({ selectedId: null });
+  productsStore.$patch({ productsPageTableSelectedId: null });
 };
 
 const handleEditRow = () => {
-  if (selectedId.value === null) {
+  if (productsPageTableSelectedId.value === null) {
     return;
   }
-  navigateTo(AppRoutes.saleEdit(selectedId.value));
+  navigateTo(AppRoutes.adminProductEdit(productsPageTableSelectedId.value));
 };
 
 onMounted(() => {
   const routeHistory = createRouteHistoryDto({
-    id: AppRoutes.satuwlar(),
-    title: "Satuwlar",
-    href: AppRoutes.satuwlar(),
+    id: AppRoutes.adminHarytlar(),
+    title: "Harytlar",
+    href: AppRoutes.adminHarytlar(),
     canClose: true,
   });
   routeHistoryStore.addHistory(routeHistory);
@@ -51,11 +51,11 @@ onMounted(() => {
 </script>
 <template>
   <div class="wrapper flex flex-col">
-    <ByteFormPanel>Satuwlar</ByteFormPanel>
+    <ByteFormPanel>Harytlar</ByteFormPanel>
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">
-          <BitButtonIconText @click="navigateTo(AppRoutes.saleCreate())">
+          <BitButtonIconText @click="navigateTo(AppRoutes.adminProductCreate())">
             <div>
               <svg
                 width="16"
@@ -92,10 +92,10 @@ onMounted(() => {
                 </defs>
               </svg>
             </div>
-            <span>Goshmak</span>
+            <span>Goşmak</span>
           </BitButtonIconText>
           <BitButtonIcon
-            :is-disabled="selectedId == null"
+            :is-disabled="productsPageTableSelectedId == null"
             @click="handleEditRow()"
           >
             <svg
@@ -134,7 +134,7 @@ onMounted(() => {
             </svg>
           </BitButtonIcon>
           <BitButtonIcon
-            :is-disabled="selectedId == null"
+            :is-disabled="productsPageTableSelectedId == null"
             @click="handleDeleteRow()"
           >
             <svg
@@ -182,7 +182,7 @@ onMounted(() => {
         </li>
       </ul>
     </section>
-    <PageSatuwlarTable />
+    <PageHarytlarTable />
     <ByteModalConfirm />
   </div>
 </template>

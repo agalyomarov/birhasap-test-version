@@ -17,7 +17,13 @@ export const useModal = () => {
   const confirmCallback = useState<(() => void) | null>("modal-confirm", () => null);
   const cancelCallback = useState<(() => void) | null>("modal-cancel", () => null);
 
-  const openModal = ({ modalTitle, modalContent, modalType, onConfirm, onCancel }: OpenModalParams) => {
+  const openModal = ({
+    modalTitle,
+    modalContent,
+    modalType,
+    onConfirm,
+    onCancel,
+  }: OpenModalParams) => {
     title.value = modalTitle;
     content.value = modalContent;
     isOpen.value = true;

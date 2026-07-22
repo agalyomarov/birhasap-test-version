@@ -6,6 +6,7 @@ const searchValueRef = ref<string | null>(null);
 const handleClearSearch = () => {
   searchValueRef.value = null;
 };
+
 const searchInputRef = ref<InstanceType<typeof BitFieldText> | null>(null);
 
 const handleKeyDown = (event: KeyboardEvent): void => {
@@ -21,7 +22,7 @@ const handleKeyDown = (event: KeyboardEvent): void => {
 
 onMounted(() => {
   window.addEventListener("keydown", handleKeyDown);
-  routeHistoryStore.$patch({ activeId: AppRoutes.home() });
+  routeHistoryStore.$patch({ activeId: AppRoutes.adminHome() });
 });
 
 onUnmounted(() => {

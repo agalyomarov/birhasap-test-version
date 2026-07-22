@@ -1,9 +1,11 @@
+mod commands;
 mod database;
 mod entities;
-mod handlers;
+mod requests;
+mod responses;
 mod state;
 
-use crate::handlers::prelude::*;
+use crate::commands::prelude::*;
 use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -11,7 +13,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![auth_login_path])
+        .invoke_handler(tauri::generate_handler![auth_login_command])
         .setup(|app: &mut tauri::App| {
             let app_data_dir = app
                 .path()

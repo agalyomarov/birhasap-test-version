@@ -2,26 +2,27 @@
 import { createRouteHistoryDto, type RouteHistoryDto } from "~/dto/RouteHistoryDto";
 
 const routeHistory = ref<RouteHistoryDto | null>(null);
-const pageTitle = "Haryt uytgetmek";
+const pageTitle = "Satuwy uytgetmek";
 const routeHistoryStore = useRouteHistory();
 const formData = reactive({
-  barcode: 1001,
-  name: "Mysal product",
+  barcode: 10001,
+  name: "Test haryt",
   price: 1000,
-  amount: 1000,
-  dimension: "sany",
+  amount: 10,
+  total_price: 1000,
+  dimension: "sant",
 });
 
-const handleStoreProduct = () => {
+const handleStoreSale = () => {
   console.log(formData);
-  navigateTo(AppRoutes.harytlar());
+  navigateTo(AppRoutes.adminSatuwlar());
 };
 
 onMounted(() => {
   routeHistory.value = createRouteHistoryDto({
-    id: AppRoutes.productEdit(100),
+    id: AppRoutes.adminSaleCreate(),
     title: pageTitle,
-    href: AppRoutes.productEdit(100),
+    href: AppRoutes.adminSaleCreate(),
     canClose: true,
   });
   routeHistoryStore.addHistory(routeHistory.value);
@@ -38,10 +39,10 @@ onUnmounted(() => {
     <section class="command-panel flex items-center">
       <ul class="flex items-center justify-between w-full">
         <li class="flex items-center gap-2">
-          <BitButtonMainText @click="handleStoreProduct()">
+          <BitButtonMainText @click="handleStoreSale()">
             <span>Hasaba almak we yapmak</span>
           </BitButtonMainText>
-          <BitButtonText @click="navigateTo(AppRoutes.harytlar())">
+          <BitButtonText @click="navigateTo(AppRoutes.adminSatuwlar())">
             <span>Yapmak</span>
           </BitButtonText>
         </li>
@@ -78,6 +79,15 @@ onUnmounted(() => {
         <BitFieldTitle>Mukdary</BitFieldTitle>
         <BitFieldText
           v-model.number="formData.amount"
+          type="number"
+          class="w-120"
+          :is-required="true"
+        />
+      </label>
+      <label class="flex items-center justify-between">
+        <BitFieldTitle>Umumy Bahasy</BitFieldTitle>
+        <BitFieldText
+          v-model.number="formData.total_price"
           type="number"
           class="w-120"
           :is-required="true"

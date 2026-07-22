@@ -5,13 +5,13 @@ export const useRouteHistory = defineStore("route-history", {
     return {
       history: [
         createRouteHistoryDto({
-          id: AppRoutes.home(),
+          id: AppRoutes.adminHome(),
           title: "Esasy sahypa",
-          href: AppRoutes.home(),
+          href: AppRoutes.adminHome(),
           canClose: false,
         }),
       ],
-      activeId: AppRoutes.home() as string,
+      activeId: AppRoutes.adminHome() as string,
     };
   },
   getters: {},

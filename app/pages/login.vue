@@ -1,24 +1,15 @@
 <script setup lang="ts">
-// import { invoke } from "@tauri-apps/api/core";
-
-// await invoke("backend_start");
-
-// await invoke("backend_stop");
-
-// await invoke("backend_restart");
-
-// const running = await invoke<boolean>("backend_status");
-
-import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
+import { authLoginPath, isApiError, type AuthLoginPathParams } from "~/types";
 
 definePageMeta({
   layout: "empty",
 });
 
 const { openModal } = useModal();
+const userStore = useUserStore();
 
 const appWindow = getCurrentWindow();
 const hideContent = ref(false);
@@ -44,36 +35,36 @@ const handleCloseWindow = async () => {
 };
 
 const handleSubmit = async () => {
-  if (lowercaseName.value == "admin" && lowercasePassword.value == "1122") {
+  try {
+    const payload: AuthLoginPathParams = {
+      payload: { login: lowercaseName.value, password: lowercasePassword.value },
+    };
+    const response = await authLoginPath(payload);
+    userStore.$patch({ authToken: response.token });
     hideContent.value = true;
     await appWindow.setAlwaysOnTop(false);
     await appWindow.setResizable(true);
     await appWindow.setMinSize(new LogicalSize(1000, 700));
     await appWindow.center();
     await appWindow.maximize();
-    await navigateTo("/", { replace: true });
-    console.log("form");
-  } else {
-    openModal({
-      modalContent: "Ulanyjy ya-da pinkod yalnysh doldurlan",
-      modalType: ModalTypeEnum.Warning,
-      modalTitle: null,
-    });
+    await navigateTo(AppRoutes.adminHome(), { replace: true });
+  } catch (err: any) {
+    if (isApiError(err)) {
+      openModal({
+        modalContent: err.message,
+        modalType: ModalTypeEnum.Warning,
+        modalTitle: null,
+      });
+    }
   }
 };
 
-let info = ref<string>("error");
 onMounted(async () => {
   await appWindow.setAlwaysOnTop(true);
   await appWindow.setResizable(false);
   await appWindow.setSize(new LogicalSize(370, 222));
-
-  try {
-    const res = await invoke<string>("auth_login");
-    info.value = res;
-  } catch (err: any) {
-    info.value = err;
-  }
+  await appWindow.center();
+  hideContent.value = false;
 });
 </script>
 <template>
@@ -81,7 +72,7 @@ onMounted(async () => {
     v-if="!hideContent"
     class="p-4 select-none"
   >
-    <PageLoginTopbar>Birhasaba girmek {{ info }}</PageLoginTopbar>
+    <PageLoginTopbar>Birhasaba girmek </PageLoginTopbar>
     <form
       class="mt-7"
       @submit.prevent="handleSubmit()"

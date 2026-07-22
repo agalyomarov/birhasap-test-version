@@ -3,12 +3,12 @@ const links = [
   {
     title: "Ähli harytlar",
     is_favorited: true,
-    href: AppRoutes.harytlar(),
+    href: AppRoutes.adminHarytlar(),
   },
   {
     title: "Satuwlar",
     is_favorited: false,
-    href: AppRoutes.satuwlar(),
+    href: AppRoutes.adminSatuwlar(),
   },
   {
     title: "Beýleki bölümler 2",

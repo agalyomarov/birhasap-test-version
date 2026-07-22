@@ -3,7 +3,7 @@ const list = Array.from({ length: 5 }).map((item, index) => {
   if (index == 0) {
     return {
       title: "Esasy sahypa",
-      href: AppRoutes.home(),
+      href: AppRoutes.adminHome(),
     };
   }
   return {
