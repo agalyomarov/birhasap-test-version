@@ -3,6 +3,7 @@ import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
 import { authLoginCommand, isApiError, type AuthLoginCommandParams } from "~/types";
+import { UserRoleEnum } from "~/utils/enums";
 
 definePageMeta({
   layout: "empty",
@@ -47,7 +48,15 @@ const handleSubmit = async () => {
     await appWindow.setMinSize(new LogicalSize(1000, 700));
     await appWindow.center();
     await appWindow.maximize();
-    await navigateTo(AppRoutes.adminHome(), { replace: true });
+    if (response.role === UserRoleEnum.Admin) {
+      await navigateTo(AppRoutes.adminHome(), { replace: true });
+      return;
+    }
+
+    if (response.role === UserRoleEnum.Kassir) {
+      await navigateTo(AppRoutes.kassirHome(), { replace: true });
+      return;
+    }
   } catch (err: any) {
     if (isApiError(err)) {
       openModal({

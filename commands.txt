@@ -3,4 +3,4 @@ sea-orm-cli generate entity \
     -o src/entities \
     --with-prelude none
 
-cargo tauri-typegen generate
+cargo tauri-typegen generate --force 

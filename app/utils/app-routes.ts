@@ -6,4 +6,6 @@ export class AppRoutes {
   static adminProductCreate = () => `/admin/product/create`;
   static adminSaleEdit = (id: number) => `/admin/sale/${id}/edit`;
   static adminSaleCreate = () => `/admin/sale/create`;
+
+  static kassirHome = () => "/kassir";
 }
