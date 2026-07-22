@@ -1,7 +1,6 @@
 mod commands;
 mod database;
 mod entities;
-mod requests;
 mod responses;
 mod state;
 

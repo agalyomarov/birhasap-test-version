@@ -2,7 +2,7 @@
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
-import { authLoginPath, isApiError, type AuthLoginPathParams } from "~/types";
+import { authLoginCommand, isApiError, type AuthLoginCommandParams } from "~/types";
 
 definePageMeta({
   layout: "empty",
@@ -36,10 +36,10 @@ const handleCloseWindow = async () => {
 
 const handleSubmit = async () => {
   try {
-    const payload: AuthLoginPathParams = {
-      payload: { login: lowercaseName.value, password: lowercasePassword.value },
+    const params: AuthLoginCommandParams = {
+      params: { login: lowercaseName.value, password: lowercasePassword.value },
     };
-    const response = await authLoginPath(payload);
+    const response = await authLoginCommand(params);
     userStore.$patch({ authToken: response.token });
     hideContent.value = true;
     await appWindow.setAlwaysOnTop(false);
@@ -63,7 +63,6 @@ onMounted(async () => {
   await appWindow.setAlwaysOnTop(true);
   await appWindow.setResizable(false);
   await appWindow.setSize(new LogicalSize(370, 222));
-  await appWindow.center();
   hideContent.value = false;
 });
 </script>

@@ -18,11 +18,3 @@ impl ApiErrorResponse {
         }
     }
 }
-
-#[derive(Serialize, Debug)]
-pub struct CommandResponse<T>
-where
-    T: Serialize + Debug,
-{
-    pub data: T,
-}
