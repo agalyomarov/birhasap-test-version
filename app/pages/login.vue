@@ -40,7 +40,7 @@ const handleSubmit = async () => {
       params: { login: lowercaseName.value, password: lowercasePassword.value },
     };
     const response = await authLoginCommand(params);
-    userStore.$patch({ authToken: response.token });
+    userStore.$patch({ authToken: response.token, role: response.role });
     hideContent.value = true;
     await appWindow.setAlwaysOnTop(false);
     await appWindow.setResizable(true);

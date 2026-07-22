@@ -1,8 +1,10 @@
+use migration::extension::mysql::IndexHintType::Use;
 use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 use serde::Serialize;
 use tauri::State;
 
 use crate::entities::users;
+use crate::enums::UserRole;
 use crate::{responses::ApiErrorResponse, state::AppState};
 
 #[tauri::command]
@@ -19,7 +21,12 @@ pub async fn auth_login_command(
 
     match user {
         Some(user) => {
-            let response = AuthLoginCommandResponse::new(user.uuid, "admin");
+            let role = match user.login.as_str() {
+                "admin" => UserRole::Admin,
+                "kassir" => UserRole::Kassir,
+                _ => todo!(),
+            };
+            let response = AuthLoginCommandResponse::new(user.uuid, role);
             return Ok(response);
         }
 
@@ -30,17 +37,17 @@ pub async fn auth_login_command(
     }
 }
 
-#[derive(Serialize, Debug)]
+#[derive(Serialize)]
 pub struct AuthLoginCommandResponse {
     token: String,
-    role: String,
+    role: UserRole,
 }
 
 impl AuthLoginCommandResponse {
-    pub fn new(token: impl Into<String>, role: impl Into<String>) -> Self {
+    pub fn new(token: impl Into<String>, role: UserRole) -> Self {
         Self {
             token: token.into(),
-            role: role.into(),
+            role: role,
         }
     }
 }

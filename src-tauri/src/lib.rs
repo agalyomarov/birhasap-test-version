@@ -1,11 +1,12 @@
 mod commands;
 mod database;
 mod entities;
+mod enums;
 mod responses;
 mod state;
-use tauri::Manager;
 
 use commands::prelude::*;
+use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
