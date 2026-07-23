@@ -22,7 +22,11 @@ impl MigrationTrait for Migration {
                             .not_null()
                             .primary_key(),
                     )
+                    .col(ColumnDef::new(Products::Barcode).string().not_null())
                     .col(ColumnDef::new(Products::Title).string().not_null())
+                    .col(ColumnDef::new(Products::Price).decimal().not_null())
+                    .col(ColumnDef::new(Products::Amount).decimal().not_null())
+                    .col(ColumnDef::new(Products::Dimension).string().not_null())
                     .col(
                         ColumnDef::new(Products::CreatedAt)
                             .string()
@@ -51,7 +55,11 @@ impl MigrationTrait for Migration {
 enum Products {
     Table,
     Uuid,
+    Barcode,
     Title,
+    Price,
+    Amount,
+    Dimension,
     CreatedAt,
     UpdatedAt,
 }

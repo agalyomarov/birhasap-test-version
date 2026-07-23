@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize)]
 pub enum UserRole {
@@ -6,4 +6,12 @@ pub enum UserRole {
     Admin,
     #[serde(rename = "kassir")]
     Kassir,
+}
+
+#[derive(Serialize, Deserialize)]
+pub enum SortDirection {
+    #[serde(rename = "asc")]
+    Asc,
+    #[serde(rename = "desc")]
+    Desc,
 }

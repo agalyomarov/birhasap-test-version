@@ -2,7 +2,7 @@
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
-import { authLoginCommand, isApiError, type AuthLoginCommandParams } from "~/types";
+import { authLoginCommand, isApiErrorResponse, type AuthLoginCommandParams } from "~/types";
 import { UserRoleEnum } from "~/utils/enums";
 
 definePageMeta({
@@ -58,7 +58,7 @@ const handleSubmit = async () => {
       return;
     }
   } catch (err: any) {
-    if (isApiError(err)) {
+    if (isApiErrorResponse(err)) {
       openModal({
         modalContent: err.message,
         modalType: ModalTypeEnum.Warning,

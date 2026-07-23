@@ -14,7 +14,7 @@ impl ApiErrorResponse {
         Self {
             message: message.into(),
             code: code.into(),
-            __type: "AppError".to_string(),
+            __type: "ApiErrorResponse".to_string(),
         }
     }
 }

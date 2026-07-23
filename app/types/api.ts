@@ -1,9 +1,11 @@
-export interface ApiError {
+export interface ApiErrorResponse {
   message: string;
   code: string;
   __type: "AppError";
 }
 
-export function isApiError(err: unknown): err is ApiError {
-  return typeof err === "object" && err !== null && "__type" in err && err.__type == "AppError";
+export function isApiErrorResponse(err: unknown): err is ApiErrorResponse {
+  return (
+    typeof err === "object" && err !== null && "__type" in err && err.__type == "ApiErrorResponse"
+  );
 }

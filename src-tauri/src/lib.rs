@@ -13,7 +13,13 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![auth_login_command])
+        .invoke_handler(tauri::generate_handler![
+            //auth/login
+            auth_login_command,
+            //admin/product
+            admin_product_list_command,
+            admin_product_create_command,
+        ])
         .setup(|app: &mut tauri::App| {
             let app_data_dir = app
                 .path()

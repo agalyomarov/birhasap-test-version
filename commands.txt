@@ -1,5 +1,6 @@
 export DATABASE_URL="sqlite:///Users/agaly/Library/Application Support/com.tauri.birhasap-test-version/database/db.sqlite"
 sea-orm-cli migrate up    
-sea-orm-cli generate entity -o src/entities --with-prelude none
+sea-orm-cli migrate down   
+sea-orm-cli generate entity -o src/entities --with-prelude none  --with-serde serialize
 
 cargo tauri-typegen generate --force 
