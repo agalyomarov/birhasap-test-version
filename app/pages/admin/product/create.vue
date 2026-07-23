@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { createRouteHistoryDto } from "~/dto/RouteHistoryDto";
+import { adminProductCreateCommand, type AdminProductCreateCommandRequest } from "~/types";
 
 const pageTitle = "Haryt goshmak";
 const routeHistoryStore = useRouteHistory();
-const formData = reactive({
+const formData = reactive<AdminProductCreateCommandRequest>({
   barcode: "",
-  name: "",
-  price: "",
-  amount: "",
+  title: "",
+  price: 0,
+  amount: 0,
   dimension: "",
 });
 
-const handleStoreProduct = () => {
-  console.log(formData);
-  navigateTo(AppRoutes.adminHarytlar());
+const handleStoreProduct = async () => {
+  try {
+    await adminProductCreateCommand({ params: formData });
+    navigateTo(AppRoutes.adminHarytlar());
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 onMounted(() => {
@@ -46,8 +51,8 @@ onMounted(() => {
       <label class="flex items-center justify-between">
         <BitFieldTitle>Strihkod</BitFieldTitle>
         <BitFieldText
-          v-model.number="formData.barcode"
-          type="number"
+          v-model="formData.barcode"
+          type="text"
           class="w-120"
           :is-required="true"
         />
@@ -55,7 +60,7 @@ onMounted(() => {
       <label class="flex items-center justify-between">
         <BitFieldTitle>Harydyn ady</BitFieldTitle>
         <BitFieldText
-          v-model="formData.name"
+          v-model="formData.title"
           class="w-120"
           :is-required="true"
         />

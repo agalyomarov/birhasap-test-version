@@ -1,6 +1,7 @@
 export interface ApiErrorResponse {
   message: string;
   code: string;
+  data: Record<string, string>;
   __type: "AppError";
 }
 
