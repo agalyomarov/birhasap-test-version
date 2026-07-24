@@ -1,6 +1,6 @@
 use std::sync::Mutex;
 
-use tauri::{App, AppHandle, Manager};
+use tauri::{AppHandle, Manager};
 use tauri_plugin_shell::{process::CommandChild, ShellExt};
 
 pub struct BackendState {
@@ -15,7 +15,7 @@ impl Default for BackendState {
     }
 }
 
-pub fn start(app: &App) -> Result<(), Box<dyn std::error::Error>> {
+pub fn start(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
     let command = app.shell().sidecar("backend")?;
     let (_rx, child) = command.spawn()?;
     let state = app.state::<BackendState>();

@@ -8,7 +8,7 @@ fn main() {
 
 fn build_backend() {
     let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
-    let backend_dir = manifest_dir.join("../../backend");
+    let backend_dir = manifest_dir.join("..").join("..").join("backend");
     let target = env::var("TARGET").unwrap();
     let binary_name = if target.contains("windows") {
         "backend.exe"
