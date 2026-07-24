@@ -3,7 +3,6 @@ import { createProductTableRowDto, type ProductTableRowDto } from "~/dto/Product
 import { createSaleTableRowDto } from "~/dto/SaleTableRowDto";
 import { createTableColumnDto, type TableColumnDto } from "~/dto/TableColumnDto";
 import { createTableOrderDto, type TableOrderDto } from "~/dto/TableOrderDto";
-import { TableColumnOrderEnum } from "~/enums/table-column-order-enum";
 
 const tableContainer = ref<HTMLElement | null>(null);
 const salesStore = useSalesStore();

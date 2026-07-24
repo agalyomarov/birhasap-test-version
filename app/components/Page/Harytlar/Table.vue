@@ -2,19 +2,21 @@
 import { createProductTableRowDto, type ProductTableRowDto } from "~/dto/ProductTableRowDto";
 import { createTableColumnDto, type TableColumnDto } from "~/dto/TableColumnDto";
 import { createTableOrderDto, type TableOrderDto } from "~/dto/TableOrderDto";
-import { TableColumnOrderEnum } from "~/enums/table-column-order-enum";
 
 const tableContainer = ref<HTMLElement | null>(null);
 const productsStore = useProductStore();
 const { productsPageTableSelectedId } = storeToRefs(productsStore);
 const page = ref(1);
-const tableOrder = ref<TableOrderDto | null>(null);
+const limit = ref(50);
+const tableOrder = ref<TableOrderDto>(
+  createTableOrderDto({ key: "id", order: SortDirectionEnum.Asc }),
+);
 const tableColumns = ref([
   createTableColumnDto({
     key: "id",
     title: "ID",
     canSort: true,
-    isHidden: true,
+    isHidden: false,
   }),
   createTableColumnDto({
     key: "barcode",
@@ -23,7 +25,7 @@ const tableColumns = ref([
     isHidden: false,
   }),
   createTableColumnDto({
-    key: "name",
+    key: "title",
     title: "Harydyn ady",
     canSort: true,
     isHidden: false,
@@ -50,18 +52,29 @@ const tableColumns = ref([
 
 const tableRows = ref<ProductTableRowDto[]>([]);
 
-const fetchProductData = () => {
-  tableOrder.value = null;
-  tableRows.value = Array.from({ length: page.value * 100 }).map((v, index) => {
-    return createProductTableRowDto({
-      id: index + 1,
-      barcode: 1000000 + index + 1,
-      name: `Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady Test haryt ${index + 1} ady  Test haryt ${index + 1} ady  Test haryt ${index + 1} ady `,
-      price: (index + 1) * 1000.0,
-      amount: (index + 1) * 100.0,
-      dimension: "sany",
+const fetchProductData = async () => {
+  try {
+    const response = await adminProductListCommand({
+      params: {
+        page: page.value,
+        limit: limit.value,
+        sort_column: tableOrder.value.key,
+        sort_direction: tableOrder.value.order,
+      },
     });
-  });
+    if (response.products.length > 0) {
+      tableRows.value.push(
+        ...response.products.map((p) => ({
+          id: p.id,
+          barcode: p.barcode,
+          title: p.title,
+          price: p.price,
+          amount: p.amount,
+          dimension: p.dimension,
+        })),
+      );
+    }
+  } catch (error) {}
 };
 
 const handleSelectId = (id: number | null) => {
@@ -73,27 +86,15 @@ const handleSelectId = (id: number | null) => {
 };
 
 const handleClickTh = (column: TableColumnDto) => {
-  let newTableOrder = null;
-  if (tableOrder.value?.key === column.key) {
-    if (tableOrder.value?.order === TableColumnOrderEnum.Asc) {
-      newTableOrder = createTableOrderDto({ key: column.key, order: TableColumnOrderEnum.Desc });
-    } else {
-      newTableOrder = null;
+  let newTableOrder = createTableOrderDto({ key: "id", order: SortDirectionEnum.Asc });
+  if (tableOrder.value.key === column.key) {
+    if (tableOrder.value?.order === SortDirectionEnum.Asc) {
+      newTableOrder = createTableOrderDto({ key: column.key, order: SortDirectionEnum.Desc });
     }
   } else {
-    newTableOrder = createTableOrderDto({ key: column.key, order: TableColumnOrderEnum.Asc });
+    newTableOrder = createTableOrderDto({ key: column.key, order: SortDirectionEnum.Asc });
   }
-
   tableOrder.value = newTableOrder;
-  tableRows.value = tableRows.value.sort((a, b) => {
-    const order = tableOrder?.value?.order ?? TableColumnOrderEnum.Asc;
-    const column = (tableOrder.value === null ? "id" : tableOrder.value.key) as keyof typeof a;
-    const aValue = a[column];
-    const bValue = b[column];
-    if (aValue === bValue) return 0;
-    const result = aValue > bValue ? 1 : -1;
-    return order === TableColumnOrderEnum.Asc ? result : -result;
-  });
 };
 
 const handleScroll = () => {
@@ -101,13 +102,13 @@ const handleScroll = () => {
   if (!el) return;
   const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 10;
   if (isBottom) {
-    if (page.value < 10) {
-      page.value += 1;
-    }
+    // if (page.value < 10) {
+    page.value += 1;
+    // }
   }
 };
 
-watch([page], () => {
+watch([page, tableOrder], () => {
   fetchProductData();
 });
 
@@ -140,7 +141,7 @@ onMounted(() => {
               <BitTableTh
                 :can-sort="column.canSort"
                 :is-ordered="column.key === tableOrder?.key"
-                :is-order-desc="tableOrder?.order === TableColumnOrderEnum.Desc"
+                :is-order-desc="tableOrder?.order === SortDirectionEnum.Desc"
                 :title="column.title"
                 :click="() => handleClickTh(column)"
               />

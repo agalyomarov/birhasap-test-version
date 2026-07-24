@@ -26,8 +26,8 @@ const handleDeleteRow = () => {
   });
 };
 
-const deleteProduct = (id: number) => {
-  console.log(`DELETE:${id}`);
+const deleteProduct = (uuid: string) => {
+  console.log(`DELETE:${uuid}`);
   productsStore.$patch({ productsPageTableSelectedId: null });
 };
 

@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { createRouteHistoryDto } from "~/dto/RouteHistoryDto";
-import { adminProductCreateCommand, type AdminProductCreateCommandRequest } from "~/types";
 
 const pageTitle = "Haryt goshmak";
 const routeHistoryStore = useRouteHistory();
-const formData = reactive<AdminProductCreateCommandRequest>({
+const formData = reactive({
   barcode: "",
   title: "",
   price: 0,
@@ -13,12 +12,12 @@ const formData = reactive<AdminProductCreateCommandRequest>({
 });
 
 const handleStoreProduct = async () => {
-  try {
-    await adminProductCreateCommand({ params: formData });
-    navigateTo(AppRoutes.adminHarytlar());
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  //   await adminProductCreateCommand({ params: formData });
+  //   navigateTo(AppRoutes.adminHarytlar());
+  // } catch (error) {
+  //   console.log(error);
+  // }
 };
 
 onMounted(() => {

@@ -1,7 +1,7 @@
 export type ProductTableRowDto = {
   id: number;
-  barcode: number;
-  name: string;
+  barcode: string;
+  title: string;
   price: number;
   amount: number;
   dimension: string;

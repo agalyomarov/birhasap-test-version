@@ -2,7 +2,6 @@
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
 import { ButtonTypeEnum } from "~/enums/button-type-enum";
 import { ModalTypeEnum } from "~/enums/modal-type-enum";
-import { authLoginCommand, isApiErrorResponse, type AuthLoginCommandParams } from "~/types";
 import { UserRoleEnum } from "~/utils/enums";
 
 definePageMeta({
@@ -37,34 +36,33 @@ const handleCloseWindow = async () => {
 
 const handleSubmit = async () => {
   try {
-    const params: AuthLoginCommandParams = {
-      params: { login: lowercaseName.value, password: lowercasePassword.value },
-    };
-    const response = await authLoginCommand(params);
-    userStore.$patch({ authToken: response.token, role: response.role });
-    hideContent.value = true;
-    await appWindow.setAlwaysOnTop(false);
-    await appWindow.setResizable(true);
-    await appWindow.setMinSize(new LogicalSize(1000, 700));
-    await appWindow.center();
-    await appWindow.maximize();
-    if (response.role === UserRoleEnum.Admin) {
-      await navigateTo(AppRoutes.adminHome(), { replace: true });
-      return;
-    }
-
-    if (response.role === UserRoleEnum.Kassir) {
-      await navigateTo(AppRoutes.kassirHome(), { replace: true });
-      return;
-    }
+    // const params: AuthLoginCommandParams = {
+    //   params: { login: lowercaseName.value, password: lowercasePassword.value },
+    // };
+    // const response = await authLoginCommand(params);
+    // userStore.$patch({ authToken: response.token, role: response.role });
+    // hideContent.value = true;
+    // await appWindow.setAlwaysOnTop(false);
+    // await appWindow.setResizable(true);
+    // await appWindow.setMinSize(new LogicalSize(1000, 700));
+    // await appWindow.center();
+    // await appWindow.maximize();
+    // if (response.role === UserRoleEnum.Admin) {
+    //   await navigateTo(AppRoutes.adminHome(), { replace: true });
+    //   return;
+    // }
+    // if (response.role === UserRoleEnum.Kassir) {
+    //   await navigateTo(AppRoutes.kassirHome(), { replace: true });
+    //   return;
+    // }
   } catch (err: any) {
-    if (isApiErrorResponse(err)) {
-      openModal({
-        modalContent: err.message,
-        modalType: ModalTypeEnum.Warning,
-        modalTitle: null,
-      });
-    }
+    // if (isApiErrorResponse(err)) {
+    //   openModal({
+    //     modalContent: err.message,
+    //     modalType: ModalTypeEnum.Warning,
+    //     modalTitle: null,
+    //   });
+    // }
   }
 };
 
