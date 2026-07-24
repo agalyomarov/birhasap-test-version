@@ -1,6 +1,7 @@
 use std::{env, fs, path::PathBuf, process::Command};
 
 fn main() {
+    clear_binaries();
     build_backend();
     tauri_build::build();
 }
@@ -49,4 +50,23 @@ fn build_backend() {
         binaries_dir.join(target_name),
     )
     .unwrap();
+}
+
+fn clear_binaries() {
+    let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
+    let binaries_dir = manifest_dir.join("binaries");
+    if !binaries_dir.exists() {
+        return;
+    }
+
+    for entry in fs::read_dir(&binaries_dir).unwrap() {
+        let entry = entry.unwrap();
+        let path = entry.path();
+
+        if path.is_file() {
+            fs::remove_file(path).unwrap();
+        } else if path.is_dir() {
+            fs::remove_dir_all(path).unwrap();
+        }
+    }
 }
